@@ -250,18 +250,22 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         backgroundColor: const Color(0XFFE8ECEE),
                         content: Row(
                           children: [
+                            Text('Item Added To Cart',
+                                style: Theme.of(context).textTheme.bodyMedium),
+                            SizedBox(
+                                width: MediaQuery.of(context).size.width / 4.2),
+                            TextButton(
+                                onPressed: () {},
+                                child: Text('UNDO',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .labelMedium)),
                             IconButton(
                                 onPressed: () => ScaffoldMessenger.of(context)
                                     .hideCurrentSnackBar(),
                                 icon: Image.asset(iconClose)),
-                            Text('Item Added To Cart',
-                                style: Theme.of(context).textTheme.bodyMedium),
                           ],
                         ),
-                        action: SnackBarAction(
-                            label: 'UNDO',
-                            textColor: Colors.black,
-                            onPressed: () {}),
                       ));
                     },
                     style: ButtonStyle(

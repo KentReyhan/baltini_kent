@@ -16,6 +16,7 @@ class HomePage extends StatelessWidget {
   final VoidCallback onNext;
   @override
   Widget build(BuildContext context) {
+    Provider.of<HomeVM>(context, listen: false).getHomeItem();
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -59,14 +60,10 @@ class HomePage extends StatelessWidget {
               child: TextButton(
                   onPressed: () {},
                   child: Text('VIEW ALL',
-                      style: Theme.of(context)
-                          .textTheme
-                          .labelMedium!
-                          .copyWith(decoration: TextDecoration.underline))),
+                      style: Theme.of(context).textTheme.labelMedium)),
             ),
             Consumer<HomeVM>(
               builder: (context, vm, child) {
-                Provider.of<HomeVM>(context, listen: false).getHomeItem();
                 if (vm.isLoading) {
                   return const Center(
                       child: Padding(

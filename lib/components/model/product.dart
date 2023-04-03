@@ -23,7 +23,8 @@ class Product {
       this.variants,
       this.options,
       this.image,
-      this.images});
+      this.images,
+      this.createdAt});
 
   var id;
   var title;
@@ -35,19 +36,20 @@ class Product {
   var options;
   var images;
   var image;
+  var createdAt;
 
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
-      id: json['id'],
-      title: json['title'],
-      price: json['variants'][0]['price'],
-      vendor: json['vendor'],
-      productType: json['product_type'],
-      image: json['image'],
-      status: json['status'],
-      variants: json['variants'],
-      options: json['options'],
-      images: json['images'],
-    );
+        id: json['id'],
+        title: json['title'],
+        price: json['variants'][0]['price'],
+        vendor: json['vendor'],
+        productType: json['product_type'],
+        image: json['image'],
+        status: json['status'],
+        variants: json['variants'],
+        options: json['options'],
+        images: json['images'],
+        createdAt: json['created_at']);
   }
 }

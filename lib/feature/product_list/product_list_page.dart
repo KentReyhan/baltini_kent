@@ -8,14 +8,9 @@ import '../../components/widget/global_widget/product_card.dart';
 import '../../components/widget/global_widget/search_bar.dart';
 import 'product_list_viewmodel.dart';
 
-class ProductListPage extends StatefulWidget {
+class ProductListPage extends StatelessWidget {
   const ProductListPage({super.key});
 
-  @override
-  State<ProductListPage> createState() => _ProductListPageState();
-}
-
-class _ProductListPageState extends State<ProductListPage> {
   @override
   Widget build(BuildContext context) {
     return Consumer<ProductListVM>(
@@ -48,44 +43,120 @@ class _ProductListPageState extends State<ProductListPage> {
                         child: Container(
                           width: MediaQuery.of(context).size.width / 2.25,
                           height: 48,
-                          //padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
                               border: Border.all(color: Colors.black),
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(10))),
                           child: Center(
-                            child: RichText(
-                                text: TextSpan(children: [
-                              WidgetSpan(child: Image.asset(iconFilter)),
-                              TextSpan(
-                                  style:
-                                      Theme.of(context).textTheme.displayMedium,
-                                  text: 'FEATURED')
-                            ])),
-                          ),
+                              child: Row(children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 16, right: 8),
+                              child: Image.asset(iconFilter),
+                            ),
+                            Text('FILTER',
+                                style:
+                                    Theme.of(context).textTheme.displayMedium)
+                          ])),
                         ),
                       ),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          showModalBottomSheet(
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(10.0),
+                                  topRight: Radius.circular(10.0)),
+                            ),
+                            context: context,
+                            builder: (context) {
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 8.0),
+                                    child: Center(
+                                      child: Container(
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                10.75,
+                                        height: 4,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                            color: Colors.grey),
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Text('SORT PRODUCT',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displayLarge),
+                                  ),
+                                  Expanded(
+                                      child: ListView.builder(
+                                    itemCount: vm.sort.length,
+                                    itemBuilder: (context, index) {
+                                      return RadioListTile(
+                                          activeColor: Colors.black,
+                                          title: Text(vm.sort[index],
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyMedium),
+                                          value: vm.sort[index],
+                                          groupValue: vm.selectedSort,
+                                          onChanged: (input) {
+                                            vm.onChangedSelectedSort(input!);
+                                            Navigator.pop(context);
+                                          });
+                                    },
+                                  ))
+                                ],
+                              );
+                            },
+                          );
+                        },
                         child: Container(
-                          width: MediaQuery.of(context).size.width / 2.25,
-                          height: 48,
-                          //padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black),
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(10))),
-                          child: Center(
-                            child: RichText(
-                                text: TextSpan(children: [
-                              WidgetSpan(child: Image.asset(iconSort)),
-                              TextSpan(
-                                  style:
-                                      Theme.of(context).textTheme.displayMedium,
-                                  text: 'SORT')
-                            ])),
-                          ),
-                        ),
+                            width: MediaQuery.of(context).size.width / 2.25,
+                            height: 48,
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.black),
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(10))),
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.only(left: 16, right: 8),
+                                  child: Image.asset(iconSort),
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 5),
+                                      child: Text('SORT',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(
+                                                  fontSize: 10,
+                                                  color: const Color(0XFF121313)
+                                                      .withOpacity(0.5))),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 5),
+                                      child: Text(vm.selectedSort,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .displayMedium),
+                                    )
+                                  ],
+                                )
+                              ],
+                            )),
                       )
                     ]),
               ),
@@ -112,7 +183,11 @@ class _ProductListPageState extends State<ProductListPage> {
                             color: Colors.black,
                           ),
                         ))
-                      : Column(children: [])
+                      : Column(children: [
+                          Center(child: Image.asset(iconEmpty)),
+                          const Text('No item found'),
+                          const Text('Try again with another filter or keyword')
+                        ])
             ],
           ),
         );

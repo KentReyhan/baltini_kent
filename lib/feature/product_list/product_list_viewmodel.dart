@@ -9,12 +9,58 @@ class ProductListVM extends ChangeNotifier {
   List<Product> product = <Product>[];
   bool isLoading = false;
   bool isEmpty = true;
+  String selectedSort = 'Featured';
+
+  List<String> sort = [
+    'Best Selling',
+    'Featured',
+    'Lowest Price',
+    'Highest Price',
+    'Alphabetically, A-Z',
+    'Alphabetically, Z-A',
+    'Date, New to Old',
+    'Date, Old to New'
+  ];
+
+  onChangedSelectedSort(String input) {
+    selectedSort = input;
+    sortProduct();
+    notifyListeners();
+  }
+
+  sortProduct() {
+    switch (selectedSort) {
+      case 'Best Selling':
+        break;
+      case 'Featured':
+        break;
+      case 'Lowest Price':
+        product.sort((a, b) => a.price.compareTo(b.price));
+        break;
+      case 'Highest Price':
+        product.sort((a, b) => b.price.compareTo(a.price));
+        break;
+      case 'Alphabetically, A-Z':
+        product.sort((a, b) => a.title.compareTo(b.title));
+        break;
+      case 'Alphabetically, Z-A':
+        product.sort((a, b) => b.title.compareTo(a.title));
+        break;
+      case 'Date, New to Old':
+        product.sort((a, b) => a.createdAt.compareTo(b.createdAt));
+        break;
+      case 'Date, Old to New':
+        product.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+        break;
+    }
+  }
 
   getSearchedProduct(String input) async {
     product.clear();
     isLoading = true;
     var result = await api.getSearchedProduct(input);
     if (result.data['products'].length != 0) {
+      isEmpty = false;
       for (int i = 0; i < result.data['products'].length; i++) {
         if (input.isEmpty ||
             result.data['products'][i]['title']

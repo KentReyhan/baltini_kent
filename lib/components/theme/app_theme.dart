@@ -51,6 +51,7 @@ class AppTheme {
           fontFamily: 'Futura',
           fontSize: 12.0,
           fontWeight: FontWeight.w800,
+          decoration: TextDecoration.underline,
           color: Color(0XFF121313)),
       labelSmall: TextStyle(
           fontFamily: 'Futura',
