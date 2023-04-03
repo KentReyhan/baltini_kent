@@ -132,28 +132,37 @@ class ProductListPage extends StatelessWidget {
                                       const EdgeInsets.only(left: 16, right: 8),
                                   child: Image.asset(iconSort),
                                 ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 5),
-                                      child: Text('SORT',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleSmall!
-                                              .copyWith(
-                                                  fontSize: 10,
-                                                  color: const Color(0XFF121313)
-                                                      .withOpacity(0.5))),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 5),
-                                      child: Text(vm.selectedSort,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .displayMedium),
-                                    )
-                                  ],
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 5),
+                                        child: Text('SORT',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleSmall!
+                                                .copyWith(
+                                                    fontSize: 10,
+                                                    color:
+                                                        const Color(0XFF121313)
+                                                            .withOpacity(0.5))),
+                                      ),
+                                      Flexible(
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsets.only(top: 5),
+                                          child: Text(vm.selectedSort,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .displayMedium,
+                                              overflow: TextOverflow.ellipsis),
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                 )
                               ],
                             )),
