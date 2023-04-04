@@ -117,7 +117,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   TextSpan(
                       style: Theme.of(context).textTheme.labelLarge,
                       text:
-                          'or 4 interest-free payments of ${StringUtils.formatToIDRDivideBy4(vm.product!.price)} with '),
+                          'or 4 interest-free payments of ${StringUtils.formatToIDR(vm.product!.price! / 4)} with '),
                   WidgetSpan(
                     child: Container(
                       padding: const EdgeInsets.all(5),

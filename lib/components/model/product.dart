@@ -28,7 +28,7 @@ class Product {
 
   var id;
   var title;
-  var price;
+  double? price;
   var vendor;
   var productType;
   var status;
@@ -42,7 +42,7 @@ class Product {
     return Product(
         id: json['id'],
         title: json['title'],
-        price: json['variants'][0]['price'],
+        price: double.parse(json['variants'][0]['price']),
         vendor: json['vendor'],
         productType: json['product_type'],
         image: json['image'],

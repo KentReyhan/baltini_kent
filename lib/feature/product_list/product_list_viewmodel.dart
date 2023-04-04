@@ -22,6 +22,15 @@ class ProductListVM extends ChangeNotifier {
     'Date, Old to New'
   ];
 
+  List<String> filter = [
+    'Gender',
+    'Category',
+    'Product Type',
+    'Designer',
+    'Size',
+    'Price'
+  ];
+
   onChangedSelectedSort(String input) {
     selectedSort = input;
     sortProduct();
@@ -35,10 +44,10 @@ class ProductListVM extends ChangeNotifier {
       case 'Featured':
         break;
       case 'Lowest Price':
-        product.sort((a, b) => a.price.compareTo(b.price));
+        product.sort((a, b) => a.price!.compareTo(b.price!));
         break;
       case 'Highest Price':
-        product.sort((a, b) => b.price.compareTo(a.price));
+        product.sort((a, b) => b.price!.compareTo(a.price!));
         break;
       case 'Alphabetically, A-Z':
         product.sort((a, b) => a.title.compareTo(b.title));
@@ -58,22 +67,21 @@ class ProductListVM extends ChangeNotifier {
   getSearchedProduct(String input) async {
     product.clear();
     isLoading = true;
+    isEmpty = true;
     var result = await api.getSearchedProduct(input);
-    if (result.data['products'].length != 0) {
-      isEmpty = false;
-      for (int i = 0; i < result.data['products'].length; i++) {
-        if (input.isEmpty ||
-            result.data['products'][i]['title']
-                .toLowerCase()
-                .contains(input.toLowerCase())) {
-          products = Products.fromJson(result.data, i);
-          product.add(products!.product);
-        } else {
-          continue;
-        }
+    for (int i = 0; i < result.data['products'].length; i++) {
+      if (input.isEmpty ||
+          result.data['products'][i]['title']
+              .toLowerCase()
+              .contains(input.toLowerCase())) {
+        products = Products.fromJson(result.data, i);
+        product.add(products!.product);
+      } else {
+        continue;
       }
-    } else {
-      isEmpty = true;
+    }
+    if (product.isNotEmpty) {
+      isEmpty = false;
     }
     isLoading = false;
     notifyListeners();

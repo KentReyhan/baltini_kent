@@ -39,7 +39,95 @@ class ProductListPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          showModalBottomSheet(
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(10.0),
+                                  topRight: Radius.circular(10.0)),
+                            ),
+                            context: context,
+                            builder: (context) {
+                              return StatefulBuilder(
+                                builder: (context, setState) {
+                                  return Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 8.0),
+                                        child: Center(
+                                          child: Container(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                10.75,
+                                            height: 4,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                                color: Colors.grey),
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(16.0),
+                                        child: Text('FILTER',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .displayLarge),
+                                      ),
+                                      Expanded(
+                                          child: ListView.builder(
+                                        itemCount: vm.filter.length,
+                                        itemBuilder: (context, index) {
+                                          bool _checked = false;
+                                          return CheckboxListTile(
+                                              controlAffinity:
+                                                  ListTileControlAffinity
+                                                      .leading,
+                                              activeColor: Colors.black,
+                                              title: Text(vm.filter[index],
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyMedium),
+                                              value: _checked,
+                                              onChanged: (input) {
+                                                _checked = input!;
+                                              });
+                                        },
+                                      )),
+                                      Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            16, 0, 16, 16),
+                                        child: ElevatedButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            style: ButtonStyle(
+                                                minimumSize:
+                                                    MaterialStateProperty.all(
+                                                        const Size.fromHeight(
+                                                            40)),
+                                                backgroundColor:
+                                                    MaterialStateProperty.all(
+                                                        const Color(
+                                                            0XFF121313))),
+                                            child: Text('FILTER',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .displayMedium!
+                                                    .copyWith(
+                                                        color: Colors.white))),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                          );
+                        },
                         child: Container(
                           width: MediaQuery.of(context).size.width / 2.25,
                           height: 48,
@@ -169,7 +257,7 @@ class ProductListPage extends StatelessWidget {
                       )
                     ]),
               ),
-              vm.isLoading == false && vm.isEmpty == false
+              !vm.isLoading && !vm.isEmpty
                   ? Expanded(
                       child: GridView.builder(
                         physics: const ScrollPhysics(),
@@ -184,19 +272,19 @@ class ProductListPage extends StatelessWidget {
                         },
                       ),
                     )
-                  : vm.isLoading == true
-                      ? const Center(
+                  : !vm.isLoading && vm.isEmpty
+                      ? Column(children: [
+                          Center(child: Image.asset(iconEmpty)),
+                          const Text('No item found'),
+                          const Text('Try again with another filter or keyword')
+                        ])
+                      : const Center(
                           child: Padding(
                           padding: EdgeInsets.only(top: 16.0),
                           child: CircularProgressIndicator(
                             color: Colors.black,
                           ),
                         ))
-                      : Column(children: [
-                          Center(child: Image.asset(iconEmpty)),
-                          const Text('No item found'),
-                          const Text('Try again with another filter or keyword')
-                        ])
             ],
           ),
         );

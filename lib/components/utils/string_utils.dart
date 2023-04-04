@@ -6,14 +6,7 @@ class StringUtils {
   static formatToIDR(number) {
     NumberFormat idrFormat =
         NumberFormat.currency(locale: 'id', symbol: 'Rp. ', decimalDigits: 2);
-    return idrFormat.format(double.parse(number));
-  }
-
-  static formatToIDRDivideBy4(number) {
-    NumberFormat idrFormat =
-        NumberFormat.currency(locale: 'id', symbol: 'Rp. ', decimalDigits: 2);
-    double res = double.parse(number) / 4;
-    return idrFormat.format(res);
+    return idrFormat.format(number);
   }
 
   static String getImagePlaceholder() {
