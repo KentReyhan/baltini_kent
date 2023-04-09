@@ -11,6 +11,7 @@ import 'components/theme/app_theme.dart';
 import 'feature/cart/cart_viewmodel.dart';
 import 'feature/product_detail/product_detail_viewmodel.dart';
 import 'feature/product_list/product_list_viewmodel.dart';
+import 'feature/search/search_viewmodel.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -21,6 +22,7 @@ void main() async {
       ChangeNotifierProvider(create: (context) => ProductDetailVM()),
       ChangeNotifierProvider(create: (context) => ProductListVM()),
       ChangeNotifierProvider(create: (context) => CartVM()),
+      ChangeNotifierProvider(create: (context) => SearchVM()),
       ChangeNotifierProvider(create: (context) => SearchProvider()),
       ChangeNotifierProvider(create: (context) => QuantityProvider()),
     ],

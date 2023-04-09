@@ -9,9 +9,11 @@ class APIService extends BaseAPIService {
 
   getHomeProducts() async {
     try {
-      response = await api.get(
-          url: _productLink,
-          parameter: {'sort_order': 'created_desc', 'limit': 6});
+      response = await api.get(url: _productLink, parameter: {
+        'sort_order': 'created_desc',
+        'limit': 6,
+        'status': 'active'
+      });
     } on DioError catch (e) {
       print(e);
       return;
@@ -19,9 +21,10 @@ class APIService extends BaseAPIService {
     return response;
   }
 
-  getRecommendedProducts() async {
+  getAllProducts() async {
     try {
-      response = await api.get(url: _productLink);
+      response =
+          await api.get(url: _productLink, parameter: {'status': 'active'});
     } on DioError catch (e) {
       print(e);
       return;
@@ -31,7 +34,8 @@ class APIService extends BaseAPIService {
 
   getSingleProducts(int id) async {
     try {
-      response = await api.get(url: _productLink, parameter: {'ids': id});
+      response = await api
+          .get(url: _productLink, parameter: {'ids': id, 'status': 'active'});
     } on DioError catch (e) {
       print(e);
       return;
@@ -41,7 +45,8 @@ class APIService extends BaseAPIService {
 
   getSearchedProduct(String input) async {
     try {
-      response = await api.get(url: _productLink);
+      response =
+          await api.get(url: _productLink, parameter: {'status': 'active'});
     } on DioError catch (e) {
       print(e);
       return;

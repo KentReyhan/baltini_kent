@@ -3,6 +3,7 @@ import 'package:baltini_kent/feature/product_list/product_list_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../feature/search/search_viewmodel.dart';
 import '../../const/img_string.dart';
 
 class SearchBar extends StatelessWidget {
@@ -11,39 +12,33 @@ class SearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<SearchProvider>(builder: (context, search, child) {
-      return Padding(
-          padding: const EdgeInsets.fromLTRB(16, 32, 8, 16),
-          child: SizedBox(
+    return Padding(
+        padding: const EdgeInsets.fromLTRB(16, 32, 8, 16),
+        child: GestureDetector(
+          onTap: () {
+            Provider.of<SearchVM>(context, listen: false).getAllProduct();
+            Navigator.pushNamed(context, '/search');
+          },
+          child: Container(
             width: width,
             height: 40,
-            child: TextFormField(
-              textInputAction: TextInputAction.search,
-              initialValue: search.searchInput,
-              onChanged: (text) {
-                search.onChangeSearchInput(text);
-              },
-              onFieldSubmitted: (text) {
-                search.searchInput ??= '';
-                Provider.of<ProductListVM>(context, listen: false)
-                    .getSearchedProduct(search.searchInput!);
-                Navigator.pushNamed(context, '/product_list');
-              },
-              style: Theme.of(context)
-                  .textTheme
-                  .labelLarge!
-                  .copyWith(fontSize: 18),
-              decoration: InputDecoration(
-                  contentPadding:
-                      const EdgeInsetsDirectional.symmetric(vertical: 5),
-                  prefixIcon: Image.asset(iconSearch),
-                  hintText: 'Search...',
-                  hintStyle: Theme.of(context).textTheme.displayMedium,
-                  border: InputBorder.none,
-                  filled: true,
-                  fillColor: const Color(0XFFE8ECEE)),
+            decoration: const BoxDecoration(
+                shape: BoxShape.rectangle,
+                color: Color(0XFFE8ECEE),
+                borderRadius: BorderRadius.all(Radius.circular(4))),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Image.asset(iconSearch),
+                  const Padding(
+                    padding: EdgeInsets.only(left: 8),
+                    child: Text('Search...'),
+                  )
+                ],
+              ),
             ),
-          ));
-    });
+          ),
+        ));
   }
 }

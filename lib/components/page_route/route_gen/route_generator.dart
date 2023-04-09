@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../feature/cart/cart_page.dart';
 import '../../../feature/product_detail/product_detail_page.dart';
 import '../../../feature/product_list/product_list_page.dart';
+import '../../../feature/search/search_page.dart';
 import '../../../feature/tabbar/bottom_nav_bar.dart';
 import '../slide_right_route.dart';
 
@@ -15,7 +16,11 @@ class RouteGenerator {
       case '/product_detail':
         return slideRightRouteArgument(const ProductDetailPage(), argument);
       case '/product_list':
-        return slideUpRoute(const ProductListPage());
+        return slideRightRoute(const ProductListPage(isOriginSearch: false));
+      case '/product_list/from_search':
+        return slideRightRoute(const ProductListPage(isOriginSearch: true));
+      case '/search':
+        return slideUpRoute(const SearchPage());
       case '/cart':
         return slideUpRoute(const CartPage());
       default:

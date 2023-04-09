@@ -51,7 +51,7 @@ class ProductDetailVM extends ChangeNotifier {
   getRecommendedProducts() async {
     recommendedProducts.clear();
     recommendedProductsCard.clear();
-    var result = await api.getRecommendedProducts();
+    var result = await api.getAllProducts();
     for (int i = 0; i < 8; i++) {
       fetchProducts = Products.fromJson(result.data, i);
       recommendedProducts.add(fetchProducts!.product);
@@ -99,5 +99,8 @@ class ProductDetailVM extends ChangeNotifier {
     }
   }
 
-  void onChangedSize(value) {}
+  void onChangedSize(String value) {
+    selectedSize = value;
+    notifyListeners();
+  }
 }

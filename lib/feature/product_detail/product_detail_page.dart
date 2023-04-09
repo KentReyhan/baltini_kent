@@ -55,6 +55,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                           textAlign: TextAlign.center,
                         ),
                       ),
+                      // ignore: prefer_const_constructors
                       Cart(),
                     ]),
               ),

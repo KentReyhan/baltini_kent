@@ -6,11 +6,11 @@ import '../../components/const/img_string.dart';
 import '../../components/widget/global_widget/cart.dart';
 import '../../components/widget/global_widget/product_card.dart';
 import '../../components/widget/global_widget/search_bar.dart';
-import '../cart/cart_viewmodel.dart';
 import 'product_list_viewmodel.dart';
 
 class ProductListPage extends StatelessWidget {
-  const ProductListPage({super.key});
+  final bool isOriginSearch;
+  const ProductListPage({super.key, required this.isOriginSearch});
 
   @override
   Widget build(BuildContext context) {
