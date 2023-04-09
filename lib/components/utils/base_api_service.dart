@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 
-String _APILink = 'https://baltini-staging.myshopify.com/admin/api/2023-01/';
-String _accessToken = '?access_token=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';
+String _apiLink = 'https://baltini-staging.myshopify.com/admin/api/2023-01/';
+String _accessToken = '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';
 
 class BaseAPIService {
   final Dio _dio = Dio();
@@ -12,10 +12,10 @@ class BaseAPIService {
       Map<String, String>? header,
       Map<String, dynamic>? parameter}) async {
     final Response<dynamic> response = await _dio.get(
-      '$_APILink$url',
+      '$_apiLink$url',
       queryParameters: parameter,
       options: Options(
-          headers: {'X-Shopify-Access-Token': _accessToken, ...header ?? {}},
+          headers: {'X-Shopify-Access-Token': _accessToken},
           receiveTimeout: const Duration(seconds: 30),
           sendTimeout: const Duration(seconds: 30)),
     );

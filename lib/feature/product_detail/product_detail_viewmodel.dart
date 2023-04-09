@@ -6,7 +6,7 @@ import 'package:baltini_kent/components/widget/global_widget/product_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../components/widget/global_widget/image_aspect_ratio.dart';
+import '../../components/const/img_string.dart';
 
 class ProductDetailVM extends ChangeNotifier {
   APIService api = APIService();
@@ -19,24 +19,33 @@ class ProductDetailVM extends ChangeNotifier {
   List<Widget> recentlyViewedCard = <Widget>[];
   List<dynamic>? size;
 
-  final images = <Widget>[
-    const ImageAspectRatio(x: 2, y: 3),
-    const ImageAspectRatio(x: 2, y: 3),
-    const ImageAspectRatio(x: 2, y: 3),
-    const ImageAspectRatio(x: 2, y: 3),
-    const ImageAspectRatio(x: 2, y: 3),
-  ];
+  String? selectedSize;
+
+  List<Image> images = <Image>[];
 
   initialize(Object? product, BuildContext context) {
-    Provider.of<ProductDetailVM>(context, listen: false)
-        .getRecommendedProducts();
-    Provider.of<ProductDetailVM>(context, listen: false)
-        .updateRecentlyViewedWidget();
-    Provider.of<ProductDetailVM>(context, listen: false).product =
-        product as Product?;
-    Provider.of<ProductDetailVM>(context, listen: false).size =
-        Provider.of<ProductDetailVM>(context, listen: false).product!.options[1]
-            ['values'];
+    var init = Provider.of<ProductDetailVM>(context, listen: false);
+    init.getRecommendedProducts();
+    init.updateRecentlyViewedWidget();
+    init.product = product as Product?;
+    init.size = init.product!.options[1]['values'];
+    init.selectedSize = init.size![0];
+    init.setImage();
+  }
+
+  setImage() {
+    images.clear();
+    if (product!.images.length != 0) {
+      for (int i = 0; i < product!.images.length; i++) {
+        images.add(Image.network(product!.images[i]['src']));
+      }
+    } else {
+      images.add(Image.asset(placeholder));
+      images.add(Image.asset(placeholder));
+      images.add(Image.asset(placeholder));
+      images.add(Image.asset(placeholder));
+      images.add(Image.asset(placeholder));
+    }
   }
 
   getRecommendedProducts() async {
@@ -89,4 +98,6 @@ class ProductDetailVM extends ChangeNotifier {
       recentlyViewedCard.add(ProductCard(product: recentlyViewed.elementAt(i)));
     }
   }
+
+  void onChangedSize(value) {}
 }

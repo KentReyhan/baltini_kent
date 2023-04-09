@@ -50,10 +50,10 @@ class ProductListVM extends ChangeNotifier {
         product.sort((a, b) => b.price!.compareTo(a.price!));
         break;
       case 'Alphabetically, A-Z':
-        product.sort((a, b) => a.title.compareTo(b.title));
+        product.sort((a, b) => a.title!.compareTo(b.title!));
         break;
       case 'Alphabetically, Z-A':
-        product.sort((a, b) => b.title.compareTo(a.title));
+        product.sort((a, b) => b.title!.compareTo(a.title!));
         break;
       case 'Date, New to Old':
         product.sort((a, b) => a.createdAt.compareTo(b.createdAt));

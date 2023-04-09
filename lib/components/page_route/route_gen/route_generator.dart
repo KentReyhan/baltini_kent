@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../feature/cart/cart_page.dart';
 import '../../../feature/product_detail/product_detail_page.dart';
 import '../../../feature/product_list/product_list_page.dart';
 import '../../../feature/tabbar/bottom_nav_bar.dart';
@@ -15,6 +16,8 @@ class RouteGenerator {
         return slideRightRouteArgument(const ProductDetailPage(), argument);
       case '/product_list':
         return slideUpRoute(const ProductListPage());
+      case '/cart':
+        return slideUpRoute(const CartPage());
       default:
         return _routeDoesNotExist();
     }

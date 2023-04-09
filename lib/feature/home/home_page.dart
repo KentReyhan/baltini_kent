@@ -10,13 +10,25 @@ import '../../components/widget/global_widget/clickable_image.dart';
 import '../../components/widget/global_widget/product_card.dart';
 import '../../components/widget/global_widget/search_bar.dart';
 import '../../components/widget/global_widget/top_banner.dart';
+import '../cart/cart_viewmodel.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.onNext});
   final VoidCallback onNext;
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<HomeVM>(context, listen: false).getHomeItem();
+  }
+
   @override
   Widget build(BuildContext context) {
-    Provider.of<HomeVM>(context, listen: false).getHomeItem();
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -26,8 +38,10 @@ class HomePage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SearchBar(width: MediaQuery.of(context).size.width / 1.3),
-                const Padding(
-                  padding: EdgeInsets.only(top: 16),
+                // ignore: prefer_const_constructors
+                Padding(
+                  padding: const EdgeInsets.only(top: 16),
+                  // ignore: prefer_const_constructors
                   child: Cart(),
                 )
               ],
@@ -109,12 +123,3 @@ class HomePage extends StatelessWidget {
     );
   }
 }
-
-/*
-  @override
-  void initState() {
-    super.initState();
-    final vm = Provider.of<HomeVM>(context, listen: false);
-    vm.getHomeItem();
-  }
-*/

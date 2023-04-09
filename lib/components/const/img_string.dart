@@ -12,6 +12,8 @@ const String brandBanner1 = '${imagePath}brand_banner_1.png';
 const String brandBanner2 = '${imagePath}brand_banner_2.png';
 const String brandBanner3 = '${imagePath}brand_banner_3.png';
 
+const String placeholder = '${imagePath}placeholder.png';
+
 const String iconPath = 'assets/icons/';
 
 const String iconSearch = '${iconPath}icons_24/ic_search.png';

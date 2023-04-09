@@ -1,3 +1,6 @@
+import 'package:baltini_kent/components/model/cart_product.dart';
+import 'package:baltini_kent/components/provider/quantity_box_provider.dart';
+import 'package:baltini_kent/feature/cart/cart_viewmodel.dart';
 import 'package:baltini_kent/feature/product_detail/product_detail_viewmodel.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +11,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../components/const/img_string.dart';
 import '../../components/utils/string_utils.dart';
 import '../../components/widget/global_widget/cart.dart';
-import '../../components/widget/global_widget/quantity_box.dart';
+import '../../components/widget/product_detail_widget/quantity_box.dart';
 import '../../components/widget/global_widget/top_banner.dart';
 import '../../components/widget/product_detail_widget/info_widget.dart';
 import '../../components/widget/product_detail_widget/product_detail_text.dart';
@@ -32,8 +35,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
       vm.initialize(id, context);
       _init = true;
     }
-    return Consumer<ProductDetailVM>(
-      builder: (context, vm, child) {
+    return Consumer3<ProductDetailVM, CartVM, QuantityProvider>(
+      builder: (context, vm, cart, qty, child) {
         return Scaffold(
             body: SingleChildScrollView(
           child: Column(
@@ -52,7 +55,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                           textAlign: TextAlign.center,
                         ),
                       ),
-                      const Cart()
+                      Cart(),
                     ]),
               ),
               const TopBanner(),
@@ -91,14 +94,14 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
                 child: Text(
-                  vm.product!.vendor,
+                  vm.product!.vendor!,
                   style: Theme.of(context).textTheme.displayLarge,
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
                 child: Text(
-                  vm.product!.productType,
+                  vm.product!.productType!,
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
               ),
@@ -166,6 +169,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   isRadio: true,
                   buttons: vm.size!,
                   controller: GroupButtonController(selectedIndex: 0),
+                  onSelected: (value, index, isSelected) {
+                    vm.onChangedSize(value);
+                  },
                   options: const GroupButtonOptions(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                     selectedColor: Color(0XFF121313),
@@ -180,7 +186,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   style: Theme.of(context).textTheme.displayMedium,
                 ),
               ),
-              const QuantityBox(),
+              QuantityBox(),
               Padding(
                 padding: const EdgeInsets.only(left: 16, top: 8, bottom: 8),
                 child: Text(
@@ -246,6 +252,30 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
                 child: ElevatedButton(
                     onPressed: () {
+                      if (qty.quantity <= 0) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                backgroundColor: Color(0XFFE8ECEE),
+                                content:
+                                    Text('Quantity cannot be less than 1')));
+                        return;
+                      }
+                      if (cart.cartProduct.keys
+                          .any((element) => element.product == vm.product)) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                backgroundColor: Color(0XFFE8ECEE),
+                                content:
+                                    Text('Product has been already added')));
+                        return;
+                      }
+                      cart.cartProduct.addAll({
+                        CartProduct(
+                            product: vm.product!,
+                            color: vm.product!.options[0]['values'][0],
+                            size: vm.selectedSize!): qty.quantity
+                      });
+                      //setState(() {});
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         backgroundColor: const Color(0XFFE8ECEE),
                         content: Row(
@@ -255,7 +285,18 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                             SizedBox(
                                 width: MediaQuery.of(context).size.width / 4.2),
                             TextButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  cart.cartProduct.removeWhere((key, value) =>
+                                      key ==
+                                      CartProduct(
+                                          product: vm.product!,
+                                          color: vm.product!.options[0]
+                                              ['values'][0],
+                                          size: vm.selectedSize!));
+                                  //setState(() {});
+                                  ScaffoldMessenger.of(context)
+                                      .hideCurrentSnackBar();
+                                },
                                 child: Text('UNDO',
                                     style: Theme.of(context)
                                         .textTheme

@@ -26,12 +26,12 @@ class Product {
       this.images,
       this.createdAt});
 
-  var id;
-  var title;
+  int? id;
+  String? title;
   double? price;
-  var vendor;
-  var productType;
-  var status;
+  String? vendor;
+  String? productType;
+  String? status;
   var variants;
   var options;
   var images;

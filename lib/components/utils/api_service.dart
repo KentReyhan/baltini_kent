@@ -1,18 +1,17 @@
+import 'package:baltini_kent/components/utils/base_api_service.dart';
 import 'package:dio/dio.dart';
 
-String _productLink =
-    'https://baltini-staging.myshopify.com/admin/api/2023-01/products.json';
-String _accessToken = '?access_token=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';
-String _getHomeItem = '&sort_order=created-desc&limit=6';
-String _getRecommendedItem = '&sort_order=created-desc&limit=8';
+String _productLink = 'products.json';
 
-class APIService {
+class APIService extends BaseAPIService {
+  BaseAPIService api = BaseAPIService();
   late Response response;
-  final _dio = Dio();
 
   getHomeProducts() async {
     try {
-      response = await _dio.get(_productLink + _accessToken + _getHomeItem);
+      response = await api.get(
+          url: _productLink,
+          parameter: {'sort_order': 'created_desc', 'limit': 6});
     } on DioError catch (e) {
       print(e);
       return;
@@ -22,8 +21,7 @@ class APIService {
 
   getRecommendedProducts() async {
     try {
-      response =
-          await _dio.get(_productLink + _accessToken + _getRecommendedItem);
+      response = await api.get(url: _productLink);
     } on DioError catch (e) {
       print(e);
       return;
@@ -33,7 +31,7 @@ class APIService {
 
   getSingleProducts(int id) async {
     try {
-      response = await _dio.get('$_productLink$_accessToken&product_id=$id');
+      response = await api.get(url: _productLink, parameter: {'ids': id});
     } on DioError catch (e) {
       print(e);
       return;
@@ -43,7 +41,7 @@ class APIService {
 
   getSearchedProduct(String input) async {
     try {
-      response = await _dio.get('$_productLink$_accessToken');
+      response = await api.get(url: _productLink);
     } on DioError catch (e) {
       print(e);
       return;

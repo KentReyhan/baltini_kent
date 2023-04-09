@@ -6,6 +6,7 @@ import '../../components/const/img_string.dart';
 import '../../components/widget/global_widget/cart.dart';
 import '../../components/widget/global_widget/product_card.dart';
 import '../../components/widget/global_widget/search_bar.dart';
+import '../cart/cart_viewmodel.dart';
 import 'product_list_viewmodel.dart';
 
 class ProductListPage extends StatelessWidget {
@@ -26,8 +27,10 @@ class ProductListPage extends StatelessWidget {
                 SearchBar(
                   width: MediaQuery.of(context).size.width / 1.5,
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(top: 16),
+                // ignore: prefer_const_constructors
+                Padding(
+                  padding: const EdgeInsets.only(top: 16),
+                  // ignore: prefer_const_constructors
                   child: Cart(),
                 )
               ]),
@@ -48,41 +51,37 @@ class ProductListPage extends StatelessWidget {
                             ),
                             context: context,
                             builder: (context) {
-                              return StatefulBuilder(
-                                builder: (context, setState) {
-                                  return Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(top: 8.0),
-                                        child: Center(
-                                          child: Container(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width /
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 8.0),
+                                    child: Center(
+                                      child: Container(
+                                        width:
+                                            MediaQuery.of(context).size.width /
                                                 10.75,
-                                            height: 4,
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(5),
-                                                color: Colors.grey),
-                                          ),
-                                        ),
+                                        height: 4,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                            color: Colors.grey),
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(16.0),
-                                        child: Text('FILTER',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .displayLarge),
-                                      ),
-                                      Expanded(
-                                          child: ListView.builder(
-                                        itemCount: vm.filter.length,
-                                        itemBuilder: (context, index) {
-                                          bool _checked = false;
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Text('FILTER',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displayLarge),
+                                  ),
+                                  Expanded(
+                                      child: ListView.builder(
+                                    itemCount: vm.filter.length,
+                                    itemBuilder: (context, index) {
+                                      return StatefulBuilder(
+                                        builder: (context, setState) {
                                           return CheckboxListTile(
                                               controlAffinity:
                                                   ListTileControlAffinity
@@ -92,38 +91,34 @@ class ProductListPage extends StatelessWidget {
                                                   style: Theme.of(context)
                                                       .textTheme
                                                       .bodyMedium),
-                                              value: _checked,
-                                              onChanged: (input) {
-                                                _checked = input!;
-                                              });
+                                              value: false,
+                                              onChanged: (input) {});
                                         },
-                                      )),
-                                      Padding(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            16, 0, 16, 16),
-                                        child: ElevatedButton(
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                            style: ButtonStyle(
-                                                minimumSize:
-                                                    MaterialStateProperty.all(
-                                                        const Size.fromHeight(
-                                                            40)),
-                                                backgroundColor:
-                                                    MaterialStateProperty.all(
-                                                        const Color(
-                                                            0XFF121313))),
-                                            child: Text('FILTER',
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .displayMedium!
-                                                    .copyWith(
-                                                        color: Colors.white))),
-                                      ),
-                                    ],
-                                  );
-                                },
+                                      );
+                                    },
+                                  )),
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        16, 0, 16, 16),
+                                    child: ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        style: ButtonStyle(
+                                            minimumSize:
+                                                MaterialStateProperty.all(
+                                                    const Size.fromHeight(40)),
+                                            backgroundColor:
+                                                MaterialStateProperty.all(
+                                                    const Color(0XFF121313))),
+                                        child: Text('FILTER',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .displayMedium!
+                                                .copyWith(
+                                                    color: Colors.white))),
+                                  ),
+                                ],
                               );
                             },
                           );
