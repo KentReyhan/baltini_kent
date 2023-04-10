@@ -1,6 +1,7 @@
 import 'package:baltini_kent/components/utils/string_utils.dart';
 import 'package:baltini_kent/components/widget/global_widget/image_aspect_ratio.dart';
 import 'package:baltini_kent/feature/cart/cart_viewmodel.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -152,15 +153,21 @@ class _CartPageState extends State<CartPage> {
                                   .bodyMedium!
                                   .copyWith(
                                       color: const Color(0XFF121313)
-                                          .withOpacity(0.5)))
+                                          .withOpacity(0.5))),
+                          const SizedBox(width: 60),
+                          CupertinoSwitch(
+                              value: vm.isProtected,
+                              onChanged: (value) {
+                                vm.onChangeIsProtected(value);
+                              })
                         ]),
                         Padding(
-                          padding: const EdgeInsets.fromLTRB(16, 0, 8, 8),
+                          padding: const EdgeInsets.fromLTRB(0, 0, 112, 8),
                           child: Text('Instantly resolve shipping issues.',
                               style: Theme.of(context).textTheme.bodyMedium),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(right: 135),
+                          padding: const EdgeInsets.only(right: 256),
                           child: TextButton(
                               onPressed: () {},
                               child: Text('Learn More',
@@ -179,39 +186,53 @@ class _CartPageState extends State<CartPage> {
                           color: const Color(0XFF121313).withOpacity(0.5))),
                 ),
                 Row(children: [
-                  Checkbox(value: false, onChanged: (value) {}),
-                  Text('I agree with the ',
+                  Checkbox(
+                      value: vm.isChecked,
+                      onChanged: (value) {
+                        vm.onChangeIsChecked(value!);
+                      }),
+                  Text('I agree with the',
                       style: Theme.of(context).textTheme.bodyMedium),
                   TextButton(
                       onPressed: () {},
                       child: Text('Terms and Conditions',
-                          style: Theme.of(context).textTheme.labelMedium))
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelMedium!
+                              .copyWith(fontSize: 14)))
                 ]),
-                Row(
-                  children: [
-                    Column(children: [
-                      Text('Subtotal',
-                          style: Theme.of(context).textTheme.bodyMedium),
-                      Text(StringUtils.formatToIDR(vm.totalPrice),
-                          style: Theme.of(context).textTheme.titleSmall)
-                    ]),
-                    SizedBox(
-                      width: 100,
-                      height: 40,
-                      child: ElevatedButton(
-                          onPressed: () {},
-                          style: ButtonStyle(
-                              minimumSize: MaterialStateProperty.all(
-                                  const Size.fromHeight(40)),
-                              backgroundColor: MaterialStateProperty.all(
-                                  const Color(0XFF121313))),
-                          child: Text('CHECK OUT',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .displayMedium!
-                                  .copyWith(color: Colors.white))),
-                    ),
-                  ],
+                Padding(
+                  padding: const EdgeInsets.only(top: 16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Column(children: [
+                        Text('Subtotal',
+                            style: Theme.of(context).textTheme.bodyMedium),
+                        Text(StringUtils.formatToIDR(vm.totalPrice),
+                            style: Theme.of(context).textTheme.titleSmall)
+                      ]),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 16, right: 16),
+                        child: SizedBox(
+                          width: 160,
+                          height: 40,
+                          child: ElevatedButton(
+                              onPressed: () {},
+                              style: ButtonStyle(
+                                  minimumSize: MaterialStateProperty.all(
+                                      const Size.fromHeight(40)),
+                                  backgroundColor: MaterialStateProperty.all(
+                                      const Color(0XFF121313))),
+                              child: Text('CHECK OUT',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displayMedium!
+                                      .copyWith(color: Colors.white))),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
