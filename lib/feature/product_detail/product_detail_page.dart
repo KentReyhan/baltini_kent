@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../components/const/img_string.dart';
+import '../../components/model/product.dart';
 import '../../components/utils/string_utils.dart';
 import '../../components/widget/global_widget/cart.dart';
 import '../../components/widget/product_detail_widget/quantity_box.dart';
@@ -17,7 +18,8 @@ import '../../components/widget/product_detail_widget/info_widget.dart';
 import '../../components/widget/product_detail_widget/product_detail_text.dart';
 
 class ProductDetailPage extends StatefulWidget {
-  const ProductDetailPage({super.key});
+  const ProductDetailPage({super.key, required this.product});
+  final Product product;
 
   @override
   State<ProductDetailPage> createState() => _ProductDetailPageState();
@@ -25,16 +27,16 @@ class ProductDetailPage extends StatefulWidget {
 
 class _ProductDetailPageState extends State<ProductDetailPage> {
   int _selectedImageIndex = 0;
-  bool _init = false;
-  ProductDetailVM vm = ProductDetailVM();
+
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<ProductDetailVM>(context, listen: false)
+        .initialize(widget.product, context);
+  }
 
   @override
   Widget build(BuildContext context) {
-    Object? id = ModalRoute.of(context)?.settings.arguments;
-    if (_init == false) {
-      vm.initialize(id, context);
-      _init = true;
-    }
     return Consumer3<ProductDetailVM, CartVM, QuantityProvider>(
       builder: (context, vm, cart, qty, child) {
         return Scaffold(
@@ -43,7 +45,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 32),
+                padding: const EdgeInsets.only(top: 16),
                 child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -167,11 +169,13 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               Padding(
                 padding: const EdgeInsets.only(left: 16.0),
                 child: GroupButton(
+                  key: Key(vm.selectedSize!),
                   isRadio: true,
                   buttons: vm.size!,
-                  controller: GroupButtonController(selectedIndex: 0),
+                  controller:
+                      GroupButtonController(selectedIndex: vm.selectedIndex),
                   onSelected: (value, index, isSelected) {
-                    vm.onChangedSize(value);
+                    vm.onChangedSize(value, index);
                   },
                   options: const GroupButtonOptions(
                     borderRadius: BorderRadius.all(Radius.circular(10)),

@@ -35,14 +35,17 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: [
             Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              //crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SearchBar(width: MediaQuery.of(context).size.width / 1.3),
-                // ignore: prefer_const_constructors
+                SearchBar(width: MediaQuery.of(context).size.width / 1.32),
                 Padding(
-                  padding: const EdgeInsets.only(top: 16),
-                  // ignore: prefer_const_constructors
-                  child: Cart(),
+                  padding: const EdgeInsets.only(top: 12),
+                  child: Cart(
+                      key: Key(Provider.of<CartVM>(context, listen: false)
+                          .cartProduct
+                          .length
+                          .toString())),
                 )
               ],
             ),

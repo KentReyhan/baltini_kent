@@ -24,7 +24,6 @@ class SearchVM extends ChangeNotifier {
   onChangeToggleHistory() {
     toggleHistory = true;
     toggleRelated = false;
-    notifyListeners();
   }
 
   onChangeToggleRelated() {

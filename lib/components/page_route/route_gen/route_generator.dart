@@ -5,6 +5,7 @@ import '../../../feature/product_detail/product_detail_page.dart';
 import '../../../feature/product_list/product_list_page.dart';
 import '../../../feature/search/search_page.dart';
 import '../../../feature/tabbar/bottom_nav_bar.dart';
+import '../../model/product.dart';
 import '../slide_right_route.dart';
 
 class RouteGenerator {
@@ -14,7 +15,7 @@ class RouteGenerator {
       case '/':
         return slideRightRoute(const ActivityBar());
       case '/product_detail':
-        return slideRightRouteArgument(const ProductDetailPage(), argument);
+        return slideRightRoute(ProductDetailPage(product: argument as Product));
       case '/product_list':
         return slideRightRoute(const ProductListPage(isOriginSearch: false));
       case '/product_list/from_search':

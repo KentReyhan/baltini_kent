@@ -1,3 +1,4 @@
+import 'package:baltini_kent/components/widget/global_widget/back_button.dart';
 import 'package:baltini_kent/feature/search/search_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -16,10 +17,8 @@ class _SearchPageState extends State<SearchPage> {
   @override
   void initState() {
     super.initState();
-    Provider.of<SearchVM>(context, listen: false).recentlySearched.add('Jeans');
-    Provider.of<SearchVM>(context, listen: false)
-        .recentlySearched
-        .add('Jacket');
+    Provider.of<SearchVM>(context, listen: false).onChangeToggleHistory();
+    Provider.of<SearchVM>(context, listen: false).searchInput = '';
   }
 
   @override
@@ -32,7 +31,7 @@ class _SearchPageState extends State<SearchPage> {
               children: [
                 const Padding(
                   padding: EdgeInsets.only(top: 16),
-                  child: BackButton(),
+                  child: BackButtons(),
                 ),
                 Padding(
                     padding: const EdgeInsets.fromLTRB(16, 32, 8, 16),
@@ -40,7 +39,6 @@ class _SearchPageState extends State<SearchPage> {
                       width: MediaQuery.of(context).size.width / 1.3,
                       height: 40,
                       child: TextFormField(
-                        //key: Key(vm.searchInput),
                         textInputAction: TextInputAction.search,
                         initialValue: vm.searchInput,
                         onChanged: (text) {
@@ -49,7 +47,7 @@ class _SearchPageState extends State<SearchPage> {
                           vm.getRelatedItems(text);
                         },
                         onEditingComplete: () {
-                          vm.recentlySearched.add(vm.searchInput);
+                          vm.insertrecentlySearched(vm.searchInput);
                           Provider.of<ProductListVM>(context, listen: false)
                               .getSearchedProduct(vm.searchInput);
                           Navigator.pushNamed(
@@ -76,40 +74,65 @@ class _SearchPageState extends State<SearchPage> {
             ),
             vm.toggleHistory
                 ? Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                    padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
                     child: ListView.builder(
                       shrinkWrap: true,
                       itemCount: vm.recentlySearched.length,
                       itemBuilder: (context, index) {
-                        return Text(vm.recentlySearched.elementAt(index),
-                            style: Theme.of(context).textTheme.bodyMedium);
+                        return GestureDetector(
+                          onTap: () {
+                            vm.onChangeSearchInput(
+                                vm.recentlySearched.elementAt(index));
+                            Provider.of<ProductListVM>(context, listen: false)
+                                .getSearchedProduct(vm.searchInput);
+                            Navigator.pushNamed(
+                                context, '/product_list/from_search');
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(16, 16, 8, 16),
+                            child: Text(vm.recentlySearched.elementAt(index),
+                                style: Theme.of(context).textTheme.bodyMedium),
+                          ),
+                        );
                       },
                     ))
                 : Column(
                     children: [
                       Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                          padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
                           child: ListView.builder(
                             shrinkWrap: true,
                             itemCount: vm.relatedProducts.length >= 4
                                 ? 4
                                 : vm.relatedProducts.length,
                             itemBuilder: (context, index) {
-                              return Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Text(vm.relatedProducts[index].title!,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium),
-                                  Text(vm.relatedProducts[index].vendor!,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .labelSmall!
-                                          .copyWith(
-                                              color: const Color(0XFF121313)
-                                                  .withOpacity(0.5)))
-                                ],
+                              return GestureDetector(
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                      context, '/product_detail',
+                                      arguments: vm.relatedProducts[index]);
+                                },
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(vm.relatedProducts[index].title!,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium),
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          0, 4, 0, 16),
+                                      child: Text(
+                                          vm.relatedProducts[index].vendor!,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelSmall!
+                                              .copyWith(
+                                                  color: const Color(0XFF121313)
+                                                      .withOpacity(0.5))),
+                                    )
+                                  ],
+                                ),
                               );
                             },
                           )),
@@ -118,6 +141,7 @@ class _SearchPageState extends State<SearchPage> {
                         padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                         child: TextButton(
                             onPressed: () {
+                              vm.insertrecentlySearched(vm.searchInput);
                               Provider.of<ProductListVM>(context, listen: false)
                                   .getSearchedProduct(vm.searchInput);
                               Navigator.pushNamed(

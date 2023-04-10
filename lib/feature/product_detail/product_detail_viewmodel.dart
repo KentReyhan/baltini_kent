@@ -20,6 +20,7 @@ class ProductDetailVM extends ChangeNotifier {
   List<dynamic>? size;
 
   String? selectedSize;
+  int selectedIndex = 0;
 
   List<Image> images = <Image>[];
 
@@ -99,8 +100,9 @@ class ProductDetailVM extends ChangeNotifier {
     }
   }
 
-  void onChangedSize(String value) {
+  void onChangedSize(String value, int index) {
     selectedSize = value;
+    selectedIndex = index;
     notifyListeners();
   }
 }

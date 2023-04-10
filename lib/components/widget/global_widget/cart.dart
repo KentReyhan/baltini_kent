@@ -15,7 +15,7 @@ class Cart extends StatelessWidget {
     return Consumer<CartVM>(builder: (context, vm, child) {
       return badges.Badge(
           key: Key(vm.cartProduct.length.toString()),
-          position: badges.BadgePosition.bottomEnd(),
+          position: badges.BadgePosition.bottomEnd(end: 15, bottom: 6),
           showBadge: true,
           ignorePointer: false,
           onTap: () {
@@ -23,7 +23,7 @@ class Cart extends StatelessWidget {
           },
           badgeContent: Container(
               clipBehavior: Clip.antiAlias,
-              padding: const EdgeInsets.all(5),
+              padding: const EdgeInsets.all(4),
               decoration: const BoxDecoration(
                   shape: BoxShape.circle, color: Colors.red),
               child: Text(vm.cartProduct.length.toString(),
@@ -32,13 +32,12 @@ class Cart extends StatelessWidget {
             badgeColor: Colors.transparent,
             elevation: 0,
           ),
-          child: const SizedBox(
-            height: 50,
-            width: 50,
-            child: FittedBox(
-              fit: BoxFit.cover,
-              child: ImageIcon(AssetImage(iconCart)),
-            ),
+          child: IconButton(
+            icon: Image.asset(iconCart),
+            iconSize: 60,
+            onPressed: () {
+              Navigator.pushNamed(context, '/cart');
+            },
           ));
     });
   }

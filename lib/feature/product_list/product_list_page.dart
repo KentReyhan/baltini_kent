@@ -1,11 +1,14 @@
 import 'package:baltini_kent/components/widget/global_widget/top_banner.dart';
+import 'package:baltini_kent/feature/search/search_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../components/const/img_string.dart';
+import '../../components/widget/global_widget/back_button.dart';
 import '../../components/widget/global_widget/cart.dart';
 import '../../components/widget/global_widget/product_card.dart';
 import '../../components/widget/global_widget/search_bar.dart';
+import '../cart/cart_viewmodel.dart';
 import 'product_list_viewmodel.dart';
 
 class ProductListPage extends StatelessWidget {
@@ -19,21 +22,44 @@ class ProductListPage extends StatelessWidget {
         return Scaffold(
           body: Column(
             children: [
-              Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                const Padding(
-                  padding: EdgeInsets.only(top: 16),
-                  child: BackButton(),
-                ),
-                SearchBar(
-                  width: MediaQuery.of(context).size.width / 1.5,
-                ),
-                // ignore: prefer_const_constructors
-                Padding(
-                  padding: const EdgeInsets.only(top: 16),
-                  // ignore: prefer_const_constructors
-                  child: Cart(),
-                )
-              ]),
+              !isOriginSearch
+                  ? Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                          const Padding(
+                            padding: EdgeInsets.only(top: 16),
+                            child: BackButtons(isOriginSearch: 'yes'),
+                          ),
+                          SearchBar(
+                            width: MediaQuery.of(context).size.width / 1.5,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 16),
+                            child: Cart(
+                                key: Key(
+                                    Provider.of<CartVM>(context, listen: false)
+                                        .cartProduct
+                                        .length
+                                        .toString())),
+                          )
+                        ])
+                  : Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                          const Padding(
+                            padding: EdgeInsets.only(top: 16),
+                            child: BackButtons(isOriginSearch: 'yes'),
+                          ),
+                          Consumer<SearchVM>(
+                            builder: (context, search, child) {
+                              return SearchBar(
+                                  width:
+                                      MediaQuery.of(context).size.width / 1.3,
+                                  text: search.searchInput,
+                                  isOriginSearch: 'yes');
+                            },
+                          ),
+                        ]),
               const TopBanner(),
               Padding(
                 padding: const EdgeInsets.only(top: 16),
