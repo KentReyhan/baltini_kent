@@ -17,7 +17,6 @@ dependencies:
   smooth_page_indicator: ^1.0.1
   group_button: ^5.2.2
   badges: ^3.0.3
-  
 
 dev_dependencies:
   flutter_test:

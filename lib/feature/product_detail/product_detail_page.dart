@@ -40,292 +40,299 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     return Consumer3<ProductDetailVM, CartVM, QuantityProvider>(
       builder: (context, vm, cart, qty, child) {
         return Scaffold(
-            body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 16),
-                child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const BackButton(),
-                      Expanded(
-                        child: Text(
-                          '${vm.product!.vendor} - ${vm.product!.productType}',
-                          style: Theme.of(context).textTheme.titleLarge,
-                          textAlign: TextAlign.center,
+            body: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 16),
+                  child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const BackButton(),
+                        Expanded(
+                          child: Text(
+                            '${vm.product!.vendor} - ${vm.product!.productType}',
+                            style: Theme.of(context).textTheme.titleLarge,
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        // ignore: prefer_const_constructors
+                        Cart(),
+                      ]),
+                ),
+                const TopBanner(),
+                Column(
+                  children: [
+                    CarouselSlider(
+                        options: CarouselOptions(
+                          height: 260,
+                          viewportFraction: 0.45,
+                          enableInfiniteScroll: false,
+                          onPageChanged: (index, reason) {
+                            setState(() {
+                              _selectedImageIndex = index;
+                            });
+                          },
+                        ),
+                        items: vm.images),
+                    Center(
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 2.0),
+                        child: AnimatedSmoothIndicator(
+                          activeIndex: _selectedImageIndex,
+                          count: vm.images.length,
+                          effect: const ScrollingDotsEffect(
+                              activeDotColor: Color(0XFF121313),
+                              dotColor: Color(0XFFE8ECEE),
+                              dotWidth: 10,
+                              dotHeight: 10),
                         ),
                       ),
-                      // ignore: prefer_const_constructors
-                      Cart(),
-                    ]),
-              ),
-              const TopBanner(),
-              Column(
-                children: [
-                  CarouselSlider(
-                      options: CarouselOptions(
-                        height: 260,
-                        viewportFraction: 0.45,
-                        enableInfiniteScroll: false,
-                        onPageChanged: (index, reason) {
-                          setState(() {
-                            _selectedImageIndex = index;
-                          });
-                        },
-                      ),
-                      items: vm.images),
-                  Center(
-                    child: Container(
-                      margin: const EdgeInsets.symmetric(
-                          vertical: 10.0, horizontal: 2.0),
-                      child: AnimatedSmoothIndicator(
-                        activeIndex: _selectedImageIndex,
-                        count: vm.images.length,
-                        effect: const ScrollingDotsEffect(
-                            activeDotColor: Color(0XFF121313),
-                            dotColor: Color(0XFFE8ECEE),
-                            dotWidth: 10,
-                            dotHeight: 10),
-                      ),
                     ),
+                  ],
+                ),
+                const SizedBox(height: 25),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+                  child: Text(
+                    vm.product!.vendor!,
+                    style: Theme.of(context).textTheme.displayLarge,
                   ),
-                ],
-              ),
-              const SizedBox(height: 25),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-                child: Text(
-                  vm.product!.vendor!,
-                  style: Theme.of(context).textTheme.displayLarge,
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-                child: Text(
-                  vm.product!.productType!,
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-                child: Text(
-                  StringUtils.formatToIDR(vm.product!.price),
-                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                      color: const Color(0XFF121313).withOpacity(0.5)),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
-                child: RichText(
-                    text: TextSpan(children: [
-                  TextSpan(
-                      style: Theme.of(context).textTheme.labelLarge,
-                      text:
-                          'or 4 interest-free payments of ${StringUtils.formatToIDR(vm.product!.price! / 4)} with '),
-                  WidgetSpan(
-                    child: Container(
-                      padding: const EdgeInsets.all(5),
-                      decoration: const BoxDecoration(
-                          color: Color(0XFFFEF1DE),
-                          borderRadius: BorderRadius.all(Radius.circular(10))),
-                      child: Text('afterpay',
-                          style: Theme.of(context).textTheme.displaySmall),
-                    ),
-                  )
-                ])),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 16),
-                      child: Text(
-                        'SIZE',
-                        style: Theme.of(context).textTheme.displayMedium,
-                      ),
-                    ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+                  child: Text(
+                    vm.product!.productType!,
+                    style: Theme.of(context).textTheme.bodyMedium,
                   ),
-                  const Spacer(),
-                  Expanded(
-                    child: TextButton(
-                        onPressed: () {},
-                        style: TextButton.styleFrom(
-                            minimumSize: const Size(8, 8),
-                            padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
-                            tapTargetSize: MaterialTapTargetSize.shrinkWrap),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+                  child: Text(
+                    StringUtils.formatToIDR(vm.product!.price),
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        color: const Color(0XFF121313).withOpacity(0.5)),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+                  child: RichText(
+                      text: TextSpan(children: [
+                    TextSpan(
+                        style: Theme.of(context).textTheme.labelLarge,
+                        text:
+                            'or 4 interest-free payments of ${StringUtils.formatToIDR(vm.product!.price! / 4)} with '),
+                    WidgetSpan(
+                      child: Container(
+                        padding: const EdgeInsets.all(5),
+                        decoration: const BoxDecoration(
+                            color: Color(0XFFFEF1DE),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                        child: Text('afterpay',
+                            style: Theme.of(context).textTheme.displaySmall),
+                      ),
+                    )
+                  ])),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 16),
                         child: Text(
-                          'SIZE CHART',
+                          'SIZE',
+                          style: Theme.of(context).textTheme.displayMedium,
+                        ),
+                      ),
+                    ),
+                    const Spacer(),
+                    Expanded(
+                      child: TextButton(
+                          onPressed: () {},
+                          style: TextButton.styleFrom(
+                              minimumSize: const Size(8, 8),
+                              padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+                              tapTargetSize: MaterialTapTargetSize.shrinkWrap),
+                          child: Text(
+                            'SIZE CHART',
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelMedium!
+                                .copyWith(decoration: TextDecoration.underline),
+                          )),
+                    )
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 16.0),
+                  child: GroupButton(
+                    key: Key(vm.selectedSize!),
+                    isRadio: true,
+                    buttons: vm.size!,
+                    controller:
+                        GroupButtonController(selectedIndex: vm.selectedIndex),
+                    onSelected: (value, index, isSelected) {
+                      vm.onChangedSize(value, index);
+                    },
+                    options: const GroupButtonOptions(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      selectedColor: Color(0XFF121313),
+                      unselectedBorderColor: Color(0XFFC9CFD2),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 16, top: 8, bottom: 8),
+                  child: Text(
+                    'QUANTITY',
+                    style: Theme.of(context).textTheme.displayMedium,
+                  ),
+                ),
+                QuantityBox(),
+                Padding(
+                  padding: const EdgeInsets.only(left: 16, top: 8, bottom: 8),
+                  child: Text(
+                    'PRODUCT DETAIL',
+                    style: Theme.of(context).textTheme.displayMedium,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 16, top: 8, bottom: 8),
+                  child: Text(
+                    'Hooded Neck\nFront Zip Closure\nTwo Side Pocket\nUnlined inner\n100% Polyamide\nMade in Italy\nModel is 184 cm tall and wear size 48 IT',
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                ),
+                const ProductDetailText(
+                    detailLabel: 'Gender', detailText: 'Men'),
+                const ProductDetailText(
+                    detailLabel: 'Material', detailText: '100% Polyamide'),
+                ProductDetailText(
+                    detailLabel: 'Color',
+                    detailText: vm.product!.options[0]['values'][0]),
+                const ProductDetailText(
+                    detailLabel: 'Made in', detailText: 'IT'),
+                ProductDetailText(
+                    detailLabel: 'Product ID',
+                    detailText: vm.product!.id.toString()),
+                const Divider(color: Colors.black),
+                const SizedBox(height: 8),
+                const InfoWidget(text: 'Shipping & Return'),
+                const SizedBox(height: 16),
+                const InfoWidget(text: 'Authenticity Guarantee'),
+                const SizedBox(height: 16),
+                const InfoWidget(text: 'Ask A Question'),
+                const SizedBox(height: 8),
+                const Divider(color: Colors.black),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+                  child: Text(
+                    'RECOMMENDED ITEMS',
+                    style: Theme.of(context).textTheme.displayMedium,
+                  ),
+                ),
+                CarouselSlider(
+                    options: CarouselOptions(
+                        height: 380,
+                        viewportFraction: 0.5,
+                        enableInfiniteScroll: false,
+                        padEnds: false),
+                    items: vm.recommendedProductsCard),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+                  child: Text(
+                    'RECENTLY VIEWED',
+                    style: Theme.of(context).textTheme.displayMedium,
+                  ),
+                ),
+                CarouselSlider(
+                    options: CarouselOptions(
+                        height: 380,
+                        viewportFraction: 0.5,
+                        enableInfiniteScroll: false,
+                        padEnds: false),
+                    items: vm.recentlyViewedCard),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                  child: ElevatedButton(
+                      onPressed: () {
+                        if (qty.quantity <= 0) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  backgroundColor: Color(0XFFE8ECEE),
+                                  content:
+                                      Text('Quantity cannot be less than 1')));
+                          return;
+                        }
+                        if (cart.cartProduct.keys
+                            .any((element) => element.product == vm.product)) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  backgroundColor: Color(0XFFE8ECEE),
+                                  content:
+                                      Text('Product has been already added')));
+                          return;
+                        }
+                        cart.cartProduct.addAll({
+                          CartProduct(
+                              product: vm.product!,
+                              color: vm.product!.options[0]['values'][0],
+                              size: vm.selectedSize!): qty.quantity
+                        });
+                        //setState(() {});
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          backgroundColor: const Color(0XFFE8ECEE),
+                          content: Row(
+                            children: [
+                              Text('Item Added To Cart',
+                                  style:
+                                      Theme.of(context).textTheme.bodyMedium),
+                              SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width / 4.2),
+                              TextButton(
+                                  onPressed: () {
+                                    cart.cartProduct.removeWhere((key, value) =>
+                                        key ==
+                                        CartProduct(
+                                            product: vm.product!,
+                                            color: vm.product!.options[0]
+                                                ['values'][0],
+                                            size: vm.selectedSize!));
+                                    //setState(() {});
+                                    ScaffoldMessenger.of(context)
+                                        .hideCurrentSnackBar();
+                                  },
+                                  child: Text('UNDO',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelMedium)),
+                              IconButton(
+                                  onPressed: () => ScaffoldMessenger.of(context)
+                                      .hideCurrentSnackBar(),
+                                  icon: Image.asset(iconClose)),
+                            ],
+                          ),
+                        ));
+                      },
+                      style: ButtonStyle(
+                          minimumSize: MaterialStateProperty.all(
+                              const Size.fromHeight(40)),
+                          backgroundColor: MaterialStateProperty.all(
+                              const Color(0XFF121313))),
+                      child: Text('ADD TO CART',
                           style: Theme.of(context)
                               .textTheme
-                              .labelMedium!
-                              .copyWith(decoration: TextDecoration.underline),
-                        )),
-                  )
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 16.0),
-                child: GroupButton(
-                  key: Key(vm.selectedSize!),
-                  isRadio: true,
-                  buttons: vm.size!,
-                  controller:
-                      GroupButtonController(selectedIndex: vm.selectedIndex),
-                  onSelected: (value, index, isSelected) {
-                    vm.onChangedSize(value, index);
-                  },
-                  options: const GroupButtonOptions(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                    selectedColor: Color(0XFF121313),
-                    unselectedBorderColor: Color(0XFFC9CFD2),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 16, top: 8, bottom: 8),
-                child: Text(
-                  'QUANTITY',
-                  style: Theme.of(context).textTheme.displayMedium,
-                ),
-              ),
-              QuantityBox(),
-              Padding(
-                padding: const EdgeInsets.only(left: 16, top: 8, bottom: 8),
-                child: Text(
-                  'PRODUCT DETAIL',
-                  style: Theme.of(context).textTheme.displayMedium,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 16, top: 8, bottom: 8),
-                child: Text(
-                  'Hooded Neck\nFront Zip Closure\nTwo Side Pocket\nUnlined inner\n100% Polyamide\nMade in Italy\nModel is 184 cm tall and wear size 48 IT',
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-              ),
-              const ProductDetailText(detailLabel: 'Gender', detailText: 'Men'),
-              const ProductDetailText(
-                  detailLabel: 'Material', detailText: '100% Polyamide'),
-              ProductDetailText(
-                  detailLabel: 'Color',
-                  detailText: vm.product!.options[0]['values'][0]),
-              const ProductDetailText(detailLabel: 'Made in', detailText: 'IT'),
-              ProductDetailText(
-                  detailLabel: 'Product ID',
-                  detailText: vm.product!.id.toString()),
-              const Divider(color: Colors.black),
-              const SizedBox(height: 8),
-              const InfoWidget(text: 'Shipping & Return'),
-              const SizedBox(height: 16),
-              const InfoWidget(text: 'Authenticity Guarantee'),
-              const SizedBox(height: 16),
-              const InfoWidget(text: 'Ask A Question'),
-              const SizedBox(height: 8),
-              const Divider(color: Colors.black),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-                child: Text(
-                  'RECOMMENDED ITEMS',
-                  style: Theme.of(context).textTheme.displayMedium,
-                ),
-              ),
-              CarouselSlider(
-                  options: CarouselOptions(
-                      height: 380,
-                      viewportFraction: 0.5,
-                      enableInfiniteScroll: false,
-                      padEnds: false),
-                  items: vm.recommendedProductsCard),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-                child: Text(
-                  'RECENTLY VIEWED',
-                  style: Theme.of(context).textTheme.displayMedium,
-                ),
-              ),
-              CarouselSlider(
-                  options: CarouselOptions(
-                      height: 380,
-                      viewportFraction: 0.5,
-                      enableInfiniteScroll: false,
-                      padEnds: false),
-                  items: vm.recentlyViewedCard),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-                child: ElevatedButton(
-                    onPressed: () {
-                      if (qty.quantity <= 0) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                backgroundColor: Color(0XFFE8ECEE),
-                                content:
-                                    Text('Quantity cannot be less than 1')));
-                        return;
-                      }
-                      if (cart.cartProduct.keys
-                          .any((element) => element.product == vm.product)) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                backgroundColor: Color(0XFFE8ECEE),
-                                content:
-                                    Text('Product has been already added')));
-                        return;
-                      }
-                      cart.cartProduct.addAll({
-                        CartProduct(
-                            product: vm.product!,
-                            color: vm.product!.options[0]['values'][0],
-                            size: vm.selectedSize!): qty.quantity
-                      });
-                      //setState(() {});
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        backgroundColor: const Color(0XFFE8ECEE),
-                        content: Row(
-                          children: [
-                            Text('Item Added To Cart',
-                                style: Theme.of(context).textTheme.bodyMedium),
-                            SizedBox(
-                                width: MediaQuery.of(context).size.width / 4.2),
-                            TextButton(
-                                onPressed: () {
-                                  cart.cartProduct.removeWhere((key, value) =>
-                                      key ==
-                                      CartProduct(
-                                          product: vm.product!,
-                                          color: vm.product!.options[0]
-                                              ['values'][0],
-                                          size: vm.selectedSize!));
-                                  //setState(() {});
-                                  ScaffoldMessenger.of(context)
-                                      .hideCurrentSnackBar();
-                                },
-                                child: Text('UNDO',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .labelMedium)),
-                            IconButton(
-                                onPressed: () => ScaffoldMessenger.of(context)
-                                    .hideCurrentSnackBar(),
-                                icon: Image.asset(iconClose)),
-                          ],
-                        ),
-                      ));
-                    },
-                    style: ButtonStyle(
-                        minimumSize: MaterialStateProperty.all(
-                            const Size.fromHeight(40)),
-                        backgroundColor:
-                            MaterialStateProperty.all(const Color(0XFF121313))),
-                    child: Text('ADD TO CART',
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayMedium!
-                            .copyWith(color: Colors.white))),
-              )
-            ],
+                              .displayMedium!
+                              .copyWith(color: Colors.white))),
+                )
+              ],
+            ),
           ),
         ));
       },

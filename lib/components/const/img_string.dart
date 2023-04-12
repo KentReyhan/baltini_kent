@@ -17,15 +17,16 @@ const String placeholder = '${imagePath}placeholder.png';
 const String iconPath = 'assets/icons/';
 
 const String iconSearch = '${iconPath}icons_24/ic_search.png';
-const String iconCart = '${iconPath}icons_44/ic_cart.png';
-const String iconBack = '${iconPath}icons_44/ic_back.png';
 const String iconPlus = '${iconPath}icons_24/ic_plus.png';
 const String iconMinus = '${iconPath}icons_24/ic_minus.png';
 const String iconCevronRight = '${iconPath}icons_24/ic_cevron_right.png';
 const String iconSort = '${iconPath}icons_24/ic_sort.png';
 const String iconFilter = '${iconPath}icons_24/ic_filter.png';
 const String iconClose = '${iconPath}icons_44/ic_close.png';
+const String iconCart = '${iconPath}icons_44/ic_cart.png';
+const String iconBack = '${iconPath}icons_44/ic_back.png';
 const String iconEmpty = '${iconPath}icons_80/ic_empty.png';
+const String iconProtect = '${iconPath}icons_80/ic_protect.png';
 
 const String navIconPath = 'assets/nav_icon/';
 

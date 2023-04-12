@@ -4,14 +4,24 @@ import '../../components/model/cart_product.dart';
 
 class CartVM extends ChangeNotifier {
   Map<CartProduct, int> cartProduct = {};
-  double totalPrice = 0;
+  double subTotal = 0;
   bool isProtected = false;
   bool isChecked = false;
 
+  void onChangeIsChecked(bool value) {
+    isChecked = value;
+    notifyListeners();
+  }
+
+  void onChangeIsProtected(bool value) {
+    isProtected = value;
+    notifyListeners();
+  }
+
   onChangeCartProduct() {
-    totalPrice = 0;
+    subTotal = 0;
     cartProduct.forEach((key, value) {
-      totalPrice = totalPrice + (key.product.price! * value);
+      subTotal = subTotal + (key.product.price! * value);
     });
     notifyListeners();
   }
@@ -34,21 +44,6 @@ class CartVM extends ChangeNotifier {
     cartProduct.update(
         cartProduct.keys.elementAt(index), (value) => value = value - 1);
     onChangeCartProduct();
-    notifyListeners();
-  }
-
-  void onChangeIsChecked(bool value) {
-    isChecked = value;
-    notifyListeners();
-  }
-
-  void onChangeIsProtected(bool value) {
-    isProtected = value;
-    if (isProtected == true) {
-      totalPrice += 330000;
-    } else {
-      totalPrice -= 330000;
-    }
     notifyListeners();
   }
 }

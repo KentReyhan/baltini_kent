@@ -49,7 +49,9 @@ class CartQuantityBox extends StatelessWidget {
                 textAlign: TextAlign.center,
                 keyboardType: TextInputType.number,
                 onChanged: (value) {
-                  vm.onChangeQuantity(index, int.parse(value));
+                  value != ''
+                      ? vm.onChangeQuantity(index, int.parse(value))
+                      : vm.onChangeQuantity(index, int.parse('0'));
                 },
                 decoration: const InputDecoration(
                     contentPadding: EdgeInsets.only(bottom: 10),
