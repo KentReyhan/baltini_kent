@@ -19,36 +19,27 @@ class CheckoutPaymentPage extends StatelessWidget {
       return Scaffold(
         body: SafeArea(
           child: SingleChildScrollView(
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               const TopCartCheckout(text: 'Checkout', isOriginPayment: 'yes'),
               const OrderSummary(),
-
-              const Padding(
-                  padding: EdgeInsets.only(bottom: 16, top: 16),
-                  child: PromoCodeInput()),
-
+              const Padding(padding: EdgeInsets.only(bottom: 16, top: 16), child: PromoCodeInput()),
               PriceListRow(text: 'Subtotal', input: cart.subTotal),
               const PriceListRow(text: 'Shipping', input: 0),
-              const PriceListRow(
-                  text: 'Import Duty/Taxes', isImportCheckout: true),
+              const PriceListRow(text: 'Import Duty/Taxes', isImportCheckout: true),
               PriceListRow(text: 'Estimated Taxes', input: cart.subTotal / 10),
               PriceListRow(text: 'Total', input: cart.subTotal, isTotal: true),
-
               Divider(color: Colors.black.withOpacity(0.5)),
               const ContactInfoPayment(),
               Divider(color: Colors.black.withOpacity(0.5)),
               Padding(
                 padding: const EdgeInsets.only(left: 16.0),
-                child: Text('PAYMENT',
-                    style: Theme.of(context).textTheme.displayMedium),
+                child: Text('PAYMENT', style: Theme.of(context).textTheme.displayMedium),
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 16.0),
                 child: Text('All transactions are secure and encrypted.',
                     style: Theme.of(context).textTheme.bodyMedium),
               ),
-
               ListView.builder(
                   shrinkWrap: true,
                   itemCount: vm.paymentOption.length,
@@ -66,13 +57,11 @@ class CheckoutPaymentPage extends StatelessWidget {
               Divider(color: Colors.black.withOpacity(0.5)),
               Padding(
                 padding: const EdgeInsets.only(left: 16.0),
-                child: Text('BILLING ADDRESS',
-                    style: Theme.of(context).textTheme.displayMedium),
+                child: Text('BILLING ADDRESS', style: Theme.of(context).textTheme.displayMedium),
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 16.0),
-                child: Text(
-                    'Select the address that matches your card or payment method.',
+                child: Text('Select the address that matches your card or payment method.',
                     style: Theme.of(context).textTheme.bodyMedium),
               ),
               ListView.builder(
@@ -101,15 +90,6 @@ class CheckoutPaymentPage extends StatelessWidget {
                   subTotal: cart.subTotal,
                 ),
               ),
-
-              //Payment
-              //ToPayment() -> Different RadioList.Builder()
-              //
-              //Different Address
-              //Reusable
-              //3x Dropdown() login / 2x Dropdown() no-login
-              //6x TextField
-              //Same Address
             ]),
           ),
         ),

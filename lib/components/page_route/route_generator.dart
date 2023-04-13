@@ -4,6 +4,7 @@ import '../../feature/cart/cart_page.dart';
 import '../../feature/checkout/checkout_payment.dart';
 import '../../feature/checkout/checkout_to_payment_page.dart';
 import '../../feature/checkout/checkout_shipping_page.dart';
+import '../../feature/login_register/view/login_page.dart';
 import '../../feature/product_detail/product_detail_page.dart';
 import '../../feature/product_list/product_list_page.dart';
 import '../../feature/search/search_page.dart';
@@ -28,11 +29,13 @@ class RouteGenerator {
       case '/cart':
         return slideUpRoute(const CartPage());
       case '/checkout/shipping':
-        return slideUpRoute(const CheckoutShippingPage());
+        return slideRightRoute(const CheckoutShippingPage());
       case '/checkout/to_payment':
-        return slideUpRoute(const CheckoutToPaymentPage());
+        return slideRightRoute(const CheckoutToPaymentPage());
       case '/checkout/payment':
-        return slideUpRoute(const CheckoutPaymentPage());
+        return slideRightRoute(const CheckoutPaymentPage());
+      case '/login':
+        return slideRightRoute(const LoginPage());
       default:
         return _routeDoesNotExist();
     }

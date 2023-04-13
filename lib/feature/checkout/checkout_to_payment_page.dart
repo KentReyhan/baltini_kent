@@ -34,7 +34,8 @@ class CheckoutToPaymentPage extends StatelessWidget {
                   input: vm.selectedShippingOption.isNotEmpty
                       ? cart.subTotal * vm.selectedShippingTax
                       : 0),
-              PriceListRow(text: 'Estimated Taxes', input: cart.subTotal / 10),
+              PriceListRow(
+                  text: 'Estimated Taxes', input: cart.subTotal * 0.05),
               PriceListRow(text: 'Total', input: cart.subTotal, isTotal: true),
               Divider(color: Colors.black.withOpacity(0.5)),
               const ContactInfoPayment(),

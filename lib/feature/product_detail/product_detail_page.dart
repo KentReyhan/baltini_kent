@@ -14,7 +14,7 @@ import '../../components/utils/string_utils.dart';
 import '../../components/widget/global_widget/cart.dart';
 import '../../components/widget/product_detail_widget/quantity_box.dart';
 import '../../components/widget/global_widget/top_banner.dart';
-import '../../components/widget/product_detail_widget/info_widget.dart';
+import '../../components/widget/global_widget/info_widget.dart';
 import '../../components/widget/product_detail_widget/product_detail_text.dart';
 
 class ProductDetailPage extends StatefulWidget {
@@ -31,8 +31,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   @override
   void initState() {
     super.initState();
-    Provider.of<ProductDetailVM>(context, listen: false)
-        .initialize(widget.product, context);
+    Provider.of<ProductDetailVM>(context, listen: false).initialize(widget.product, context);
   }
 
   @override
@@ -47,20 +46,18 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(top: 16),
-                  child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const BackButton(),
-                        Expanded(
-                          child: Text(
-                            '${vm.product!.vendor} - ${vm.product!.productType}',
-                            style: Theme.of(context).textTheme.titleLarge,
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        // ignore: prefer_const_constructors
-                        Cart(),
-                      ]),
+                  child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                    const BackButton(),
+                    Expanded(
+                      child: Text(
+                        '${vm.product!.vendor} - ${vm.product!.productType}',
+                        style: Theme.of(context).textTheme.titleLarge,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    // ignore: prefer_const_constructors
+                    Cart(),
+                  ]),
                 ),
                 const TopBanner(),
                 Column(
@@ -79,8 +76,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         items: vm.images),
                     Center(
                       child: Container(
-                        margin: const EdgeInsets.symmetric(
-                            vertical: 10.0, horizontal: 2.0),
+                        margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
                         child: AnimatedSmoothIndicator(
                           activeIndex: _selectedImageIndex,
                           count: vm.images.length,
@@ -113,8 +109,10 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
                   child: Text(
                     StringUtils.formatToIDR(vm.product!.price),
-                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                        color: const Color(0XFF121313).withOpacity(0.5)),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyLarge!
+                        .copyWith(color: const Color(0XFF121313).withOpacity(0.5)),
                   ),
                 ),
                 Padding(
@@ -130,10 +128,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         padding: const EdgeInsets.all(5),
                         decoration: const BoxDecoration(
                             color: Color(0XFFFEF1DE),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-                        child: Text('afterpay',
-                            style: Theme.of(context).textTheme.displaySmall),
+                            borderRadius: BorderRadius.all(Radius.circular(10))),
+                        child: Text('afterpay', style: Theme.of(context).textTheme.displaySmall),
                       ),
                     )
                   ])),
@@ -174,8 +170,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     key: Key(vm.selectedSize!),
                     isRadio: true,
                     buttons: vm.size!,
-                    controller:
-                        GroupButtonController(selectedIndex: vm.selectedIndex),
+                    controller: GroupButtonController(selectedIndex: vm.selectedIndex),
                     onSelected: (value, index, isSelected) {
                       vm.onChangedSize(value, index);
                     },
@@ -208,26 +203,16 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ),
-                const ProductDetailText(
-                    detailLabel: 'Gender', detailText: 'Men'),
-                const ProductDetailText(
-                    detailLabel: 'Material', detailText: '100% Polyamide'),
+                const ProductDetailText(detailLabel: 'Gender', detailText: 'Men'),
+                const ProductDetailText(detailLabel: 'Material', detailText: '100% Polyamide'),
                 ProductDetailText(
-                    detailLabel: 'Color',
-                    detailText: vm.product!.options[0]['values'][0]),
-                const ProductDetailText(
-                    detailLabel: 'Made in', detailText: 'IT'),
-                ProductDetailText(
-                    detailLabel: 'Product ID',
-                    detailText: vm.product!.id.toString()),
+                    detailLabel: 'Color', detailText: vm.product!.options[0]['values'][0]),
+                const ProductDetailText(detailLabel: 'Made in', detailText: 'IT'),
+                ProductDetailText(detailLabel: 'Product ID', detailText: vm.product!.id.toString()),
                 const Divider(color: Colors.black),
-                const SizedBox(height: 8),
-                const InfoWidget(text: 'Shipping & Return'),
-                const SizedBox(height: 16),
-                const InfoWidget(text: 'Authenticity Guarantee'),
-                const SizedBox(height: 16),
-                const InfoWidget(text: 'Ask A Question'),
-                const SizedBox(height: 8),
+                const InfoWidget(text: 'Shipping & Return', top: 8, bottom: 8),
+                const InfoWidget(text: 'Authenticity Guarantee', top: 8, bottom: 8),
+                const InfoWidget(text: 'Ask A Question', top: 8, bottom: 8),
                 const Divider(color: Colors.black),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
@@ -265,17 +250,14 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                               backgroundColor: const Color(0XFFE8ECEE),
                               content: Text('Quantity cannot be less than 1',
-                                  style:
-                                      Theme.of(context).textTheme.bodyMedium)));
+                                  style: Theme.of(context).textTheme.bodyMedium)));
                           return;
                         }
-                        if (cart.cartProduct.keys
-                            .any((element) => element.product == vm.product)) {
+                        if (cart.cartProduct.keys.any((element) => element.product == vm.product)) {
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                               backgroundColor: const Color(0XFFE8ECEE),
                               content: Text('Product has been already added',
-                                  style:
-                                      Theme.of(context).textTheme.bodyMedium)));
+                                  style: Theme.of(context).textTheme.bodyMedium)));
                           return;
                         }
                         cart.cartProduct.addAll({
@@ -290,41 +272,32 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                           content: Row(
                             children: [
                               Text('Item Added To Cart',
-                                  style:
-                                      Theme.of(context).textTheme.bodyMedium),
-                              SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.width / 4.2),
+                                  style: Theme.of(context).textTheme.bodyMedium),
+                              SizedBox(width: MediaQuery.of(context).size.width / 4.2),
                               TextButton(
                                   onPressed: () {
                                     cart.cartProduct.removeWhere((key, value) =>
                                         key ==
                                         CartProduct(
                                             product: vm.product!,
-                                            color: vm.product!.options[0]
-                                                ['values'][0],
+                                            color: vm.product!.options[0]['values'][0],
                                             size: vm.selectedSize!));
                                     //setState(() {});
-                                    ScaffoldMessenger.of(context)
-                                        .hideCurrentSnackBar();
+                                    ScaffoldMessenger.of(context).hideCurrentSnackBar();
                                   },
-                                  child: Text('UNDO',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .labelMedium)),
+                                  child:
+                                      Text('UNDO', style: Theme.of(context).textTheme.labelMedium)),
                               IconButton(
-                                  onPressed: () => ScaffoldMessenger.of(context)
-                                      .hideCurrentSnackBar(),
+                                  onPressed: () =>
+                                      ScaffoldMessenger.of(context).hideCurrentSnackBar(),
                                   icon: Image.asset(iconClose)),
                             ],
                           ),
                         ));
                       },
                       style: ButtonStyle(
-                          minimumSize: MaterialStateProperty.all(
-                              const Size.fromHeight(40)),
-                          backgroundColor: MaterialStateProperty.all(
-                              const Color(0XFF121313))),
+                          minimumSize: MaterialStateProperty.all(const Size.fromHeight(40)),
+                          backgroundColor: MaterialStateProperty.all(const Color(0XFF121313))),
                       child: Text('ADD TO CART',
                           style: Theme.of(context)
                               .textTheme

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../components/model/shipping_option.dart';
+import '../../components/model/shipping_method.dart';
 
 class CheckoutVM extends ChangeNotifier {
   String firstName = '';
