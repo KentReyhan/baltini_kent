@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../components/widget/global_widget/top_bar.dart';
-import '../vm/login_vm.dart';
+import '../vm/login_viewmodel.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
