@@ -262,20 +262,20 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   child: ElevatedButton(
                       onPressed: () {
                         if (qty.quantity <= 0) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  backgroundColor: Color(0XFFE8ECEE),
-                                  content:
-                                      Text('Quantity cannot be less than 1')));
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              backgroundColor: const Color(0XFFE8ECEE),
+                              content: Text('Quantity cannot be less than 1',
+                                  style:
+                                      Theme.of(context).textTheme.bodyMedium)));
                           return;
                         }
                         if (cart.cartProduct.keys
                             .any((element) => element.product == vm.product)) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  backgroundColor: Color(0XFFE8ECEE),
-                                  content:
-                                      Text('Product has been already added')));
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              backgroundColor: const Color(0XFFE8ECEE),
+                              content: Text('Product has been already added',
+                                  style:
+                                      Theme.of(context).textTheme.bodyMedium)));
                           return;
                         }
                         cart.cartProduct.addAll({

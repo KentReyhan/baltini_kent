@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../feature/cart/cart_page.dart';
-import '../../feature/checkout/checkout_page.dart';
+import '../../feature/checkout/checkout_payment.dart';
+import '../../feature/checkout/checkout_to_payment_page.dart';
+import '../../feature/checkout/checkout_shipping_page.dart';
 import '../../feature/product_detail/product_detail_page.dart';
 import '../../feature/product_list/product_list_page.dart';
 import '../../feature/search/search_page.dart';
@@ -25,8 +27,12 @@ class RouteGenerator {
         return slideUpRoute(const SearchPage());
       case '/cart':
         return slideUpRoute(const CartPage());
-      case '/checkout':
-        return slideUpRoute(const CheckoutPage());
+      case '/checkout/shipping':
+        return slideUpRoute(const CheckoutShippingPage());
+      case '/checkout/to_payment':
+        return slideUpRoute(const CheckoutToPaymentPage());
+      case '/checkout/payment':
+        return slideUpRoute(const CheckoutPaymentPage());
       default:
         return _routeDoesNotExist();
     }

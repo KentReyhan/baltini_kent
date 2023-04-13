@@ -18,7 +18,7 @@ class BackButtons extends StatelessWidget {
                 if (isOriginSearch == 'yes') {
                   Navigator.pushNamed(context, '/');
                 } else {
-                  Navigator.of(context).pop(context);
+                  Navigator.pop(context);
                 }
               },
               icon: Image.asset(iconBack)),

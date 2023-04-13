@@ -2,7 +2,7 @@ import 'package:baltini_kent/feature/cart/cart_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../const/img_string.dart';
+import '../../../const/img_string.dart';
 
 class CartQuantityBox extends StatelessWidget {
   final int index;

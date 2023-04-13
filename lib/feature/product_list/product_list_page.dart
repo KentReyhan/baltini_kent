@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import '../../components/const/img_string.dart';
 import '../../components/widget/global_widget/back_button.dart';
 import '../../components/widget/global_widget/cart.dart';
+import '../../components/widget/global_widget/item_empty.dart';
 import '../../components/widget/global_widget/product_card.dart';
 import '../../components/widget/global_widget/search_bar.dart';
 import '../cart/cart_viewmodel.dart';
@@ -300,12 +301,7 @@ class ProductListPage extends StatelessWidget {
                         ),
                       )
                     : !vm.isLoading && vm.isEmpty
-                        ? Column(children: [
-                            Center(child: Image.asset(iconEmpty)),
-                            const Text('No item found'),
-                            const Text(
-                                'Try again with another filter or keyword')
-                          ])
+                        ? const ItemEmpty()
                         : const Center(
                             child: Padding(
                             padding: EdgeInsets.only(top: 16.0),

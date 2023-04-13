@@ -15,6 +15,11 @@ class CartVM extends ChangeNotifier {
 
   void onChangeIsProtected(bool value) {
     isProtected = value;
+    if (isProtected == true) {
+      subTotal += 330000;
+    } else {
+      subTotal -= 330000;
+    }
     notifyListeners();
   }
 
