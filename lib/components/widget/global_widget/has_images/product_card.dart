@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../feature/product_detail/product_detail_viewmodel.dart';
-import '../../const/img_string.dart';
-import '../../model/product.dart';
-import '../../utils/string_utils.dart';
+import '../../../../feature/product_detail/product_detail_viewmodel.dart';
+import '../../../const/img_string.dart';
+import '../../../model/product.dart';
+import '../../../utils/string_utils.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;

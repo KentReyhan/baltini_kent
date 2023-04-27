@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../global_widget/clickable_image.dart';
+import '../global_widget/has_images/clickable_image.dart';
 
 class BrandBanner extends StatelessWidget {
   final String brandBannerImage;

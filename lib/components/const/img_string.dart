@@ -25,8 +25,10 @@ const String iconFilter = '${iconPath}icons_24/ic_filter.png';
 const String iconClose = '${iconPath}icons_44/ic_close.png';
 const String iconCart = '${iconPath}icons_44/ic_cart.png';
 const String iconBack = '${iconPath}icons_44/ic_back.png';
+const String iconDelete = '${iconPath}icons_44/ic_delete.png';
 const String iconEmpty = '${iconPath}icons_80/ic_empty.png';
 const String iconProtect = '${iconPath}icons_80/ic_protect.png';
+const String iconSuccess = '${iconPath}icons_80/ic_success.png';
 
 const String navIconPath = 'assets/nav_icon/';
 
@@ -38,3 +40,15 @@ const String navIconMyAccountActive = '${navIconPath}my_account_active.png';
 const String navIconMyAccountInactive = '${navIconPath}my_account_inactive.png';
 const String navIconMyOrderActive = '${navIconPath}my_order_active.png';
 const String navIconMyOrderInactive = '${navIconPath}my_order_inactive.png';
+
+const String paymentIcon = 'assets/images/payment_icon/';
+const String iconAfterpay = '${paymentIcon}afterpay.png';
+const String iconCreditCard1 = '${paymentIcon}credit_card_1.png';
+const String iconCreditCard2 = '${paymentIcon}credit_card_2.png';
+const String iconCreditCard3 = '${paymentIcon}credit_card_3.png';
+const String iconCreditCard4 = '${paymentIcon}credit_card_4.png';
+const String iconKlarna = '${paymentIcon}klarna.png';
+const String iconNihao1 = '${paymentIcon}nihao_1.png';
+const String iconNihao2 = '${paymentIcon}nihao_2.png';
+const String iconNihao3 = '${paymentIcon}nihao_3.png';
+const String iconShoppay = '${paymentIcon}shoppay.png';

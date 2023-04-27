@@ -9,11 +9,16 @@ import 'package:path_provider/path_provider.dart' as path_provider;
 import 'components/page_route/route_generator.dart';
 import 'components/provider/quantity_box_provider.dart';
 import 'components/provider/search_provider.dart';
+import 'components/provider/user_provider.dart';
 import 'components/theme/app_theme.dart';
 import 'feature/cart/cart_viewmodel.dart';
 import 'feature/checkout/checkout_viewmodel.dart';
 import 'components/hive/hive_helper.dart';
 import 'feature/home/home_viewmodel.dart';
+import 'feature/login_register/vm/login_viewmodel.dart';
+import 'feature/login_register/vm/register_viewmodel.dart';
+import 'feature/my_account/profile_address/vm/my_address_viewmodel.dart';
+import 'feature/my_account/profile_address/vm/my_profile_viewmodel.dart';
 import 'feature/product_detail/product_detail_viewmodel.dart';
 import 'feature/product_list/product_list_viewmodel.dart';
 import 'feature/search/search_viewmodel.dart';
@@ -37,8 +42,13 @@ void main() async {
       ChangeNotifierProvider(create: (context) => CartVM()),
       ChangeNotifierProvider(create: (context) => SearchVM()),
       ChangeNotifierProvider(create: (context) => CheckoutVM()),
+      ChangeNotifierProvider(create: (context) => LoginVM()),
+      ChangeNotifierProvider(create: (context) => RegisterVM()),
+      ChangeNotifierProvider(create: (context) => MyProfileVM()),
+      ChangeNotifierProvider(create: (context) => MyAddressVM()),
       ChangeNotifierProvider(create: (context) => SearchProvider()),
       ChangeNotifierProvider(create: (context) => QuantityProvider()),
+      ChangeNotifierProvider(create: (context) => UserProvider()),
     ],
     child: const MainApp(),
   ));

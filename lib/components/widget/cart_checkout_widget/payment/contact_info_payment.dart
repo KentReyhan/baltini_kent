@@ -2,6 +2,8 @@ import 'package:baltini_kent/feature/checkout/checkout_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../provider/user_provider.dart';
+
 class ContactInfoPayment extends StatelessWidget {
   const ContactInfoPayment({
     super.key,
@@ -9,8 +11,8 @@ class ContactInfoPayment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<CheckoutVM>(
-      builder: (context, vm, child) {
+    return Consumer2<CheckoutVM, UserProvider>(
+      builder: (context, vm, user, child) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -29,17 +31,20 @@ class ContactInfoPayment extends StatelessWidget {
                             .textTheme
                             .displaySmall!
                             .copyWith(color: Colors.black.withOpacity(0.5))),
-                    TextButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/checkout/shipping');
-                        },
-                        child: Text('CHANGE',
-                            style: Theme.of(context).textTheme.labelMedium))
+                    user.loginUser == null
+                        ? TextButton(
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                  context, '/checkout/shipping');
+                            },
+                            child: Text('CHANGE',
+                                style: Theme.of(context).textTheme.labelMedium))
+                        : Container()
                   ]),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 16),
-              child: Text(vm.email),
+              child: Text(vm.emailController.text),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 16, right: 16),
@@ -61,12 +66,14 @@ class ContactInfoPayment extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(left: 16),
-              child: Text('${vm.address},${vm.city},${vm.state}',
+              child: Text(
+                  '${vm.addressController.text},${vm.cityController.text},${vm.stateController.text}',
                   style: Theme.of(context).textTheme.bodyLarge),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 16),
-              child: Text('${vm.zipCode},${vm.country}',
+              child: Text(
+                  '${vm.zipCodeController.text},${vm.countryController.text}',
                   style: Theme.of(context).textTheme.bodyLarge),
             )
             //vm.isMethod? :Container()

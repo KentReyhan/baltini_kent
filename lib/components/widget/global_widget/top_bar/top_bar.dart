@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../const/img_string.dart';
+import '../../../const/img_string.dart';
 
 class TopBar extends StatelessWidget {
   final String text;

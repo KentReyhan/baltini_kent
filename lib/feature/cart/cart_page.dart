@@ -1,5 +1,4 @@
 import 'package:baltini_kent/components/utils/string_utils.dart';
-import 'package:baltini_kent/components/widget/global_widget/image_aspect_ratio.dart';
 import 'package:baltini_kent/feature/cart/cart_viewmodel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +7,7 @@ import 'package:provider/provider.dart';
 import '../../components/const/img_string.dart';
 import '../../components/widget/cart_checkout_widget/bottom_row_cart_checkout.dart';
 import '../../components/widget/cart_checkout_widget/cart/cart_quantity_box.dart';
-import '../../components/widget/global_widget/back_button.dart';
+import '../../components/widget/global_widget/has_images/image_aspect_ratio.dart';
 import '../../components/widget/global_widget/item_empty.dart';
 import '../../components/widget/global_widget/text_field_cart_checkout.dart';
 import '../../components/widget/cart_checkout_widget/top_cart_checkout.dart';

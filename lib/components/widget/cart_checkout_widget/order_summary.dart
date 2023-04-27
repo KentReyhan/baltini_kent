@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../../../feature/cart/cart_viewmodel.dart';
 import '../../const/img_string.dart';
 import '../../utils/string_utils.dart';
-import '../global_widget/image_aspect_ratio.dart';
+import '../global_widget/has_images/image_aspect_ratio.dart';
 
 class OrderSummary extends StatelessWidget {
   const OrderSummary({

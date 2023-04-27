@@ -38,6 +38,7 @@ flutter:
     - assets/icons/icons_80/
     - assets/images/
     - assets/images/product/
+    - assets/images/payment_icon/
     - assets/nav_icon/
     - assets/splashscreen/
 

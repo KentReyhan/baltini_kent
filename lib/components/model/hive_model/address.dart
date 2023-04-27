@@ -11,34 +11,50 @@ class Address extends HiveObject {
   int userID;
 
   @HiveField(2)
-  String country;
+  String firstName;
 
   @HiveField(3)
-  String state;
+  String lastName;
 
   @HiveField(4)
-  String city;
+  String country;
 
   @HiveField(5)
-  String address;
+  String state;
 
   @HiveField(6)
-  String zipCode;
+  String city;
 
   @HiveField(7)
-  String? optionalAddress;
+  String address;
 
   @HiveField(8)
+  String zipCode;
+
+  @HiveField(9)
+  String? optionalAddress;
+
+  @HiveField(10)
   String? company;
+
+  @HiveField(11)
+  bool isDefault;
+
+  @HiveField(12)
+  String phone;
 
   Address(
       {required this.addressID,
       required this.userID,
+      required this.firstName,
+      required this.lastName,
       required this.country,
       required this.state,
       required this.city,
       required this.address,
       required this.zipCode,
+      required this.isDefault,
+      required this.phone,
       this.optionalAddress,
       this.company});
 }

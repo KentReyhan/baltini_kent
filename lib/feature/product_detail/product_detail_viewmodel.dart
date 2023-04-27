@@ -2,7 +2,7 @@ import 'dart:collection';
 
 import 'package:baltini_kent/components/model/product.dart';
 import 'package:baltini_kent/components/utils/api_service.dart';
-import 'package:baltini_kent/components/widget/global_widget/product_card.dart';
+import 'package:baltini_kent/components/widget/global_widget/has_images/product_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

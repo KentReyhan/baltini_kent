@@ -1,14 +1,14 @@
-import 'package:baltini_kent/components/widget/global_widget/top_banner.dart';
+import 'package:baltini_kent/components/widget/global_widget/top_bar/top_banner.dart';
 import 'package:baltini_kent/feature/search/search_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../components/const/img_string.dart';
-import '../../components/widget/global_widget/back_button.dart';
-import '../../components/widget/global_widget/cart.dart';
 import '../../components/widget/global_widget/item_empty.dart';
-import '../../components/widget/global_widget/product_card.dart';
+import '../../components/widget/global_widget/has_images/product_card.dart';
 import '../../components/widget/global_widget/search_bar.dart';
+import '../../components/widget/global_widget/top_bar/back_button.dart';
+import '../../components/widget/global_widget/top_bar/cart.dart';
 import '../cart/cart_viewmodel.dart';
 import 'product_list_viewmodel.dart';
 

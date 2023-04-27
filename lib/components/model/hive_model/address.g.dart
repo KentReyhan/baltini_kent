@@ -19,38 +19,50 @@ class AddressAdapter extends TypeAdapter<Address> {
     return Address(
       addressID: fields[0] as int,
       userID: fields[1] as int,
-      country: fields[2] as String,
-      state: fields[3] as String,
-      city: fields[4] as String,
-      address: fields[5] as String,
-      zipCode: fields[6] as String,
-      optionalAddress: fields[7] as String?,
-      company: fields[8] as String?,
+      firstName: fields[2] as String,
+      lastName: fields[3] as String,
+      country: fields[4] as String,
+      state: fields[5] as String,
+      city: fields[6] as String,
+      address: fields[7] as String,
+      zipCode: fields[8] as String,
+      isDefault: fields[11] as bool,
+      phone: fields[12] as String,
+      optionalAddress: fields[9] as String?,
+      company: fields[10] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Address obj) {
     writer
-      ..writeByte(9)
+      ..writeByte(13)
       ..writeByte(0)
       ..write(obj.addressID)
       ..writeByte(1)
       ..write(obj.userID)
       ..writeByte(2)
-      ..write(obj.country)
+      ..write(obj.firstName)
       ..writeByte(3)
-      ..write(obj.state)
+      ..write(obj.lastName)
       ..writeByte(4)
-      ..write(obj.city)
+      ..write(obj.country)
       ..writeByte(5)
-      ..write(obj.address)
+      ..write(obj.state)
       ..writeByte(6)
-      ..write(obj.zipCode)
+      ..write(obj.city)
       ..writeByte(7)
-      ..write(obj.optionalAddress)
+      ..write(obj.address)
       ..writeByte(8)
-      ..write(obj.company);
+      ..write(obj.zipCode)
+      ..writeByte(9)
+      ..write(obj.optionalAddress)
+      ..writeByte(10)
+      ..write(obj.company)
+      ..writeByte(11)
+      ..write(obj.isDefault)
+      ..writeByte(12)
+      ..write(obj.phone);
   }
 
   @override

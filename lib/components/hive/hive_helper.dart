@@ -26,7 +26,7 @@ class HiveHelper {
   }
 
   static seedActivity() {
-    //activityBox.deleteFromDisk();
+    userBox.deleteFromDisk();
     //ActivitySeeder.seedActivity();
   }
 }

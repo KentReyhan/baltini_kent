@@ -2,8 +2,9 @@ import 'package:baltini_kent/components/const/img_string.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../feature/cart/cart_viewmodel.dart';
 import 'package:badges/badges.dart' as badges;
+
+import '../../../../feature/cart/cart_viewmodel.dart';
 
 class Cart extends StatelessWidget {
   const Cart({

@@ -4,12 +4,12 @@ import 'package:provider/provider.dart';
 
 import '../../components/const/img_string.dart';
 import '../../components/const/text_string.dart';
+import '../../components/widget/global_widget/has_images/clickable_image.dart';
+import '../../components/widget/global_widget/top_bar/cart.dart';
 import '../../components/widget/home_widget/brand_banner.dart';
-import '../../components/widget/global_widget/cart.dart';
-import '../../components/widget/global_widget/clickable_image.dart';
-import '../../components/widget/global_widget/product_card.dart';
+import '../../components/widget/global_widget/has_images/product_card.dart';
 import '../../components/widget/global_widget/search_bar.dart';
-import '../../components/widget/global_widget/top_banner.dart';
+import '../../components/widget/global_widget/top_bar/top_banner.dart';
 import '../cart/cart_viewmodel.dart';
 
 class HomePage extends StatefulWidget {

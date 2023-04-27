@@ -19,13 +19,17 @@ class CheckoutPaymentPage extends StatelessWidget {
       return Scaffold(
         body: SafeArea(
           child: SingleChildScrollView(
-            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               const TopCartCheckout(text: 'Checkout', isOriginPayment: 'yes'),
               const OrderSummary(),
-              const Padding(padding: EdgeInsets.only(bottom: 16, top: 16), child: PromoCodeInput()),
+              const Padding(
+                  padding: EdgeInsets.only(bottom: 16, top: 16),
+                  child: PromoCodeInput()),
               PriceListRow(text: 'Subtotal', input: cart.subTotal),
               const PriceListRow(text: 'Shipping', input: 0),
-              const PriceListRow(text: 'Import Duty/Taxes', isImportCheckout: true),
+              const PriceListRow(
+                  text: 'Import Duty/Taxes', isImportCheckout: true),
               PriceListRow(text: 'Estimated Taxes', input: cart.subTotal / 10),
               PriceListRow(text: 'Total', input: cart.subTotal, isTotal: true),
               Divider(color: Colors.black.withOpacity(0.5)),
@@ -33,7 +37,8 @@ class CheckoutPaymentPage extends StatelessWidget {
               Divider(color: Colors.black.withOpacity(0.5)),
               Padding(
                 padding: const EdgeInsets.only(left: 16.0),
-                child: Text('PAYMENT', style: Theme.of(context).textTheme.displayMedium),
+                child: Text('PAYMENT',
+                    style: Theme.of(context).textTheme.displayMedium),
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 16.0),
@@ -46,8 +51,13 @@ class CheckoutPaymentPage extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return RadioListTile(
                         activeColor: Colors.black,
-                        title: Text(vm.paymentOption[index],
+                        title: Text(vm.paymentOptionMap.keys.elementAt(index),
                             style: Theme.of(context).textTheme.bodyMedium),
+                        subtitle: Row(children: [
+                          for (String res
+                              in vm.paymentOptionMap.values.elementAt(index))
+                            Image.asset(res)
+                        ]),
                         value: vm.paymentOption[index],
                         groupValue: vm.selectedPaymentOption,
                         onChanged: (input) {
@@ -57,11 +67,13 @@ class CheckoutPaymentPage extends StatelessWidget {
               Divider(color: Colors.black.withOpacity(0.5)),
               Padding(
                 padding: const EdgeInsets.only(left: 16.0),
-                child: Text('BILLING ADDRESS', style: Theme.of(context).textTheme.displayMedium),
+                child: Text('BILLING ADDRESS',
+                    style: Theme.of(context).textTheme.displayMedium),
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 16.0),
-                child: Text('Select the address that matches your card or payment method.',
+                child: Text(
+                    'Select the address that matches your card or payment method.',
                     style: Theme.of(context).textTheme.bodyMedium),
               ),
               ListView.builder(

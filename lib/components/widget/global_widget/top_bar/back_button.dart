@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../const/img_string.dart';
+import '../../../const/img_string.dart';
 
 class BackButtons extends StatelessWidget {
   final String? isOriginSearch;

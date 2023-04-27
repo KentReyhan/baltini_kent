@@ -7,7 +7,8 @@ import '../my_account/my_account_page.dart';
 import '../my_order/my_order_page.dart';
 
 class ActivityBar extends StatefulWidget {
-  const ActivityBar({super.key});
+  final int index;
+  const ActivityBar({super.key, required this.index});
 
   @override
   State<StatefulWidget> createState() => _ActivityBarState();
@@ -19,7 +20,8 @@ class _ActivityBarState extends State<ActivityBar>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 4, vsync: this);
+    _tabController =
+        TabController(length: 4, vsync: this, initialIndex: widget.index);
   }
 
   @override
@@ -32,7 +34,6 @@ class _ActivityBarState extends State<ActivityBar>
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 4,
-      initialIndex: 1,
       child: Scaffold(
         backgroundColor: Colors.black,
         body: Column(children: [

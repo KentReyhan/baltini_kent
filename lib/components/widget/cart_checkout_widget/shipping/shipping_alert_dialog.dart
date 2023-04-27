@@ -18,10 +18,14 @@ class ShippingAlertDialog extends StatelessWidget {
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(vm.address, style: Theme.of(context).textTheme.bodyMedium),
-              Text(vm.city, style: Theme.of(context).textTheme.bodyMedium),
-              Text(vm.state, style: Theme.of(context).textTheme.bodyMedium),
-              Text(vm.zipCode, style: Theme.of(context).textTheme.bodyMedium)
+              Text(vm.addressController.text,
+                  style: Theme.of(context).textTheme.bodyMedium),
+              Text(vm.cityController.text,
+                  style: Theme.of(context).textTheme.bodyMedium),
+              Text(vm.stateController.text,
+                  style: Theme.of(context).textTheme.bodyMedium),
+              Text(vm.zipCodeController.text,
+                  style: Theme.of(context).textTheme.bodyMedium)
             ],
           ),
           actions: [

@@ -1,10 +1,10 @@
-import 'package:baltini_kent/components/widget/global_widget/back_button.dart';
-import 'package:baltini_kent/feature/search/search_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../components/const/img_string.dart';
+import '../../components/widget/global_widget/top_bar/back_button.dart';
 import '../product_list/product_list_viewmodel.dart';
+import 'search_viewmodel.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
